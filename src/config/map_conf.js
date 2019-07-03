@@ -426,47 +426,6 @@ series.push({
         value: geoCoordMap[tempData[0]],
         visualMap: false
     }],
-}, {
-    name: 'barSer',
-    type: 'bar',
-    roam: false,
-    visualMap: false,
-    zlevel: 2,
-    barMaxWidth: 8,
-    barGap: 0,
-    itemStyle: {
-        normal: {
-            color: function(params) {
-                // build a color map as your need.
-                var colorList = [{
-                        colorStops: [{
-                            offset: 0,
-                            color: '#FFD119' // 0% 处的颜色
-                        }, {
-                            offset: 1,
-                            color: '#FFAC4C' // 100% 处的颜色
-                        }]
-                    },
-                    {
-                        colorStops: [{
-                            offset: 0,
-                            color: '#00C0FA' // 0% 处的颜色
-                        }, {
-                            offset: 1,
-                            color: '#2F95FA' // 100% 处的颜色
-                        }]
-                    }
-                ];
-                if (params.dataIndex < 3) {
-                    return colorList[0]
-                } else {
-                    return colorList[1]
-                }
-            },
-            barBorderRadius: 15
-        }
-    },
-    data: barData
 });
 
 var option = {
@@ -485,16 +444,6 @@ var option = {
             }
         }
     },
-    title: [{
-        show: true,
-        text: '我们来自...',
-        textStyle: {
-            color: '#2D3E53',
-            fontSize: 18
-        },
-        left: 460,
-        top: 50
-    }],
     visualMap: {
         min: 0,
         max: 100,
@@ -503,69 +452,13 @@ var option = {
         show: false
     },
     grid: {
-        left: 550,
-        top: 100,
-        bottom: 30,
-        width: '20%'
+        show: false
     },
     xAxis: {
         show: false
     },
     yAxis: {
-        type: 'category',
-        inverse: true,
-        nameGap: 16,
-        axisLine: {
-            show: false,
-            lineStyle: {
-                color: '#ddd'
-            }
-        },
-        axisTick: {
-            show: false,
-            lineStyle: {
-                color: '#ddd'
-            }
-        },
-        axisLabel: {
-            interval: 0,
-            margin: 85,
-            textStyle: {
-                color: '#455A74',
-                align: 'left',
-                fontSize: 14
-            },
-            rich: {
-                a: {
-                    color: '#fff',
-                    backgroundColor: '#FAAA39',
-                    width: 20,
-                    height: 20,
-                    align: 'center',
-                    borderRadius: 2
-                },
-                b: {
-                    color: '#fff',
-                    backgroundColor: '#4197FD',
-                    width: 20,
-                    height: 20,
-                    align: 'center',
-                    borderRadius: 2
-                }
-            },
-            formatter: function(params) {
-                if (parseInt(params.slice(0, 1)) < 3) {
-                    return [
-                        '{a|' + (parseInt(params.slice(0, 1)) + 1) + '}  ' + params.slice(1)
-                    ].join('\n')
-                } else {
-                    return [
-                        '{b|' + (parseInt(params.slice(0, 1)) + 1) + '}  ' + params.slice(1)
-                    ].join('\n')
-                }
-            }
-        },
-        data: yData
+        show: false
     },
     geo: {
         map: 'china',

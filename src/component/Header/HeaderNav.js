@@ -4,18 +4,28 @@ import Tab from '@material-ui/core/Tab';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 const StyledTabs = withStyles({
-    indicator: {
-      display: 'flex',
-      justifyContent: 'center',
-      backgroundColor: 'transparent',
-      width: '120px',
-      '& > div': {
-        maxWidth: 30,
-        width: '100%',
-        backgroundColor: '#635e34',
-      },
+  root:{
+    padding: '0 100px',
+    '& .MuiTabs-scroller .MuiTabs-flexContainer': {
+      float: 'right',
+      width: '100%',
+      '& :first-child': {
+        marginRight: 'auto',
+      }
+    }
+  },
+  indicator: {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    width: '120px',
+    '& > div': {
+      maxWidth: 30,
+      width: '100%',
+      backgroundColor: '#635e34',
     },
-  })(props => <Tabs {...props} TabIndicatorProps={{ children: <div /> }} />);
+  },
+})(props => <Tabs {...props} TabIndicatorProps={{ children: <div /> }} />);
   
   const StyledTab = withStyles(theme => ({
     root: {
@@ -29,23 +39,18 @@ const StyledTabs = withStyles({
     },
   }))(props => <Tab disableRipple {...props} />);
 
-const useStyle = makeStyles({
-    outer: {
-        float: 'left',
-    }
-})
 export default function HeaderNav() {
-    const classes = useStyle();
     const [value, setValue] = React.useState(0);
     function handleChange(event, newValue) {
         setValue(newValue);
     }
     return(
-        <div className={classes.outer}>
+        <div>
             <StyledTabs value={value} onChange={handleChange}>
-                <StyledTab label="首页" />
-                <StyledTab label="导航" />
-                <StyledTab label="博客" />
+              <StyledTab icon={<img alt="" src="/images/logo.png" />} />
+              <StyledTab label="首页" />
+              <StyledTab label="导航" />
+              <StyledTab label="博客" />
             </StyledTabs>
         </div>
     )

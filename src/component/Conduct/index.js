@@ -2,9 +2,9 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { XskyButton, BaseButton, Card } from '../../utils';
 
 const Banner = withStyles({
     root: {
@@ -13,7 +13,10 @@ const Banner = withStyles({
         height: 300,
         borderRadius: '0 10px 10px 0',
         position: 'relative',
-        left: '-40px'
+        left: '-40px',
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center'
     },
   })(props => <Typography {...props} variant="h2" component="h2" gutterBottom />);
 
@@ -52,27 +55,6 @@ const Detial = withStyles({
     }
 })(props => <Grid {...props} container spacing={2} />)
 
-const XskyButton = withStyles({
-        'root': {
-            height: '2rem',
-            background: 'linear-gradient(45deg, #448aff 30%, #6b58c4 90%)',
-            borderRadius: 3,
-            border: 0,
-            color: 'white',
-            padding: '0 30px',
-            boxShadow: '0 3px 5px 2px rgba(107, 88, 196, .3)',
-        }
-})(props => <Button {...props} />)
-const BaseButton = withStyles({
-    'root': {
-        height: '2rem',
-        borderRadius: 3,
-        border: 0,
-        padding: '0 30px',
-        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
-    }
-})(props => <Button {...props} />)
-
 const useStyle = makeStyles(theme => ({
     button1: {
         marginRight: theme.spacing(2),
@@ -84,7 +66,11 @@ export default function Conduct() {
     return(
         <CusContainer>
             <Banner>
-                
+                <Card image="/images/hooters.png" title="Hooters" color="origin" />
+                <Card image="/images/hooters.png" title="Hooters" color="purple" />
+                <Card image="/images/hooters.png" title="Hooters" color="blue" />
+                <Card image="/images/hooters.png" title="Hooters" color="green" />
+                <Card image="/images/hooters.png" title="Hooters" color="red" />
             </Banner>
             <Content>
                 <Detial>

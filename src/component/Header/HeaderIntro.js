@@ -1,6 +1,8 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { XskyButton } from '../../utils';
 
 const useStyles = makeStyles({
   outer: {
@@ -8,7 +10,7 @@ const useStyles = makeStyles({
     maxWidth: 500,
     float: 'left',
     textAlign: 'left',
-    padding: 80,
+    padding: 130,
   },
 });
 export default function HeaderIntro() {
@@ -26,6 +28,9 @@ export default function HeaderIntro() {
                 XSKY自成立以来注重科技创新，致力于以中国技术力量影响开放平台生态系统，创建自主可控的底层设施，以主流的、
                 先进的技术和产品为客户创造价值，提供企业级分布式软件定义存储产品，帮助客户实现数据中心架构革新。
             </Typography>
+            <ButtonGroup>
+                <XskyButton>加入我们～</XskyButton>
+            </ButtonGroup>
         </div>
     )
 }
