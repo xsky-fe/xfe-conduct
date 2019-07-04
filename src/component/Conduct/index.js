@@ -1,22 +1,19 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { XskyButton, BaseButton, Card } from '../../utils';
+import { XskyButton, BaseButton, Card, smothScroll } from '../../utils';
 
 const Banner = withStyles({
     root: {
-        background: '#513dae',
+        // background: '#513dae',
         width: '100%',
-        height: 300,
         borderRadius: '0 10px 10px 0',
-        position: 'relative',
-        left: '-40px',
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center'
+        // position: 'relative',
+        // left: '-40px',
     },
   })(props => <Typography {...props} variant="h2" component="h2" gutterBottom />);
 
@@ -37,7 +34,7 @@ const Content = withStyles({
     }
 })(props => <Typography {...props} component="div" />)
 
-const Detial = withStyles({
+const Detail = withStyles({
     root: {
         borderRadius: 10,
         // boxShadow: '0 3px 5px 2px rgba(158, 158, 158, .3)',
@@ -63,17 +60,75 @@ const useStyle = makeStyles(theme => ({
 
 export default function Conduct() {
     const classes = useStyle();
+    function DiscoverMore(){
+        const top = document.documentElement.clientHeight;
+        smothScroll(top * 2 - 50);
+    }
     return(
         <CusContainer>
             <Banner>
-                <Card image="/images/hooters.png" title="Hooters" color="origin" />
-                <Card image="/images/hooters.png" title="Hooters" color="purple" />
-                <Card image="/images/hooters.png" title="Hooters" color="blue" />
-                <Card image="/images/hooters.png" title="Hooters" color="green" />
-                <Card image="/images/hooters.png" title="Hooters" color="red" />
+                <Box textAlign="left">
+                    <Typography variant="h3" gutterBottom>快速开始一天的工作</Typography>
+                    <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='2rem'>
+                        <Typography variant="body1" gutterBottom>整理了在一天的工作之中可能会用到的网址</Typography>
+                        <BaseButton onClick = {()=> DiscoverMore()}>查看更多</BaseButton>
+                    </Box>
+                </Box>
+                <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap='wrap' marginBottom='2rem'>
+                    <Card 
+                        image="/images/hooters.png"
+                        title="Hooters" 
+                        color="WarmFlame"
+                        detail="Hooters监控着集群的健康状态"
+                    />
+                    <Card
+                        image="/images/license-logo.png"
+                        title="License"
+                        color="NightFade"
+                        detail="你可以在license获得产品的认证"
+                        />
+                    <Card 
+                        image="/images/oem-logo.png"
+                        title="oem"
+                        color="DeepBlue"
+                        detail="ome包含你需要的xx"
+                        />
+                    <Card
+                        image="/images/Wiki-logo.png" 
+                        title="wiki" 
+                        color="PlumPlate"
+                        detail="学城里藏了我们所有的记录和工作笔记"
+                        />
+                </Box>
+                <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap='wrap' marginBottom='2rem'>
+                    <Card 
+                        image="/images/Issue-logo.png"
+                        title="Issue" 
+                        color="RainyAshville"
+                        detail="欢迎提交优秀的issue，这样我们会变得更好"
+                    />
+                    <Card
+                        image="/images/italent-logo.png"
+                        title="Italent"
+                        color="WinterNeva"
+                        detail="来看看有没有什么代办项，或者来查一查工资"
+                        />
+                    <Card 
+                        image="/images/maycur-logo.png"
+                        title="Maycur"
+                        color="ItmeoBranding"
+                        detail="报个销吧"
+                        />
+                    <Card 
+                        image="/images/logo.png"
+                        title="Xsky"
+                        color="FarawayRiver"
+                        detail="每天都能开心的工，每天都能准时的下班"
+                        />
+                </Box>
             </Banner>
             <Content>
-                <Detial>
+                <Detail>
                     <Grid item xs={5}>
                         <img alt="img1" src="images/wizardUI.png" />
                     </Grid>
@@ -91,8 +146,8 @@ export default function Conduct() {
                             <BaseButton href="https://github.com/xsky-fe/wizard-ui">GitHub</BaseButton>
                         </ButtonGroup>
                     </Grid>
-                </Detial>
-                <Detial>
+                </Detail>
+                <Detail>
                     <Grid item xs={6}>
                         <Typography variant="h3" gutterBottom>GITHUB 主页</Typography>
                         <Typography variant="body1" gutterBottom>汇集了XFE所有开发的项目</Typography>
@@ -106,7 +161,7 @@ export default function Conduct() {
                     <Grid item xs={5}>
                         <img alt="img1" src="images/XFEGITHUB.png" />
                     </Grid>
-                </Detial>
+                </Detail>
             </Content>
         </CusContainer>
     )

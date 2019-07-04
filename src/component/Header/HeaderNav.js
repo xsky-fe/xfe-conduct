@@ -1,7 +1,8 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { smothScroll } from '../../utils';
+import { withStyles } from '@material-ui/core/styles';
 
 const StyledTabs = withStyles({
   root:{
@@ -40,9 +41,11 @@ const StyledTabs = withStyles({
   }))(props => <Tab disableRipple {...props} />);
 
 export default function HeaderNav() {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(1);
+    const top = document.documentElement.clientHeight;
     function handleChange(event, newValue) {
         setValue(newValue);
+        smothScroll((newValue-1) * top -  50);
     }
     return(
         <div>
