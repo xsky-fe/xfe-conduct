@@ -1,56 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { XskyButton, BaseButton, Card, smothScroll } from '../../utils';
-
-const Banner = withStyles({
-    root: {
-        // background: '#513dae',
-        width: '100%',
-        borderRadius: '0 10px 10px 0',
-        // position: 'relative',
-        // left: '-40px',
-    },
-  })(props => <Typography {...props} variant="h2" component="h2" gutterBottom />);
-
-const CusContainer = withStyles({
-    root: {
-        '@media screen and (min-width: 600px)': {
-            paddingLeft: 80,
-            paddingRight: 80
-        }
-    },
-  })(props => <Container {...props} maxWidth="lg" />);
-
-const Content = withStyles({
-    root: {
-        borderRadius: 10,
-        boxShadow: '0 3px 5px 2px rgba(158, 158, 158, .3)',
-        padding: 20,
-    }
-})(props => <Typography {...props} component="div" />)
-
-const Detail = withStyles({
-    root: {
-        borderRadius: 10,
-        // boxShadow: '0 3px 5px 2px rgba(158, 158, 158, .3)',
-        display: 'flex',
-        justifyContent: 'space-between',
-        textAlign: 'left',
-        padding: 20,
-        '& img': {
-            width: '100%',
-            // boxShadow: '0 3px 5px 2px rgba(158, 158, 158, .3)',
-        },
-        '& button': {
-            marginRight: 10,
-        }
-    }
-})(props => <Grid {...props} container spacing={2} />)
+import { makeStyles } from '@material-ui/core/styles';
+import { XskyButton, BaseButton, Card, smothScroll, Container, Banner, Content, Detail } from '../../utils';
 
 const useStyle = makeStyles(theme => ({
     button1: {
@@ -65,7 +19,7 @@ export default function Conduct() {
         smothScroll(top * 2 - 50);
     }
     return(
-        <CusContainer>
+        <Container>
             <Banner>
                 <Box textAlign="left">
                     <Typography variant="h3" gutterBottom>快速开始一天的工作</Typography>
@@ -80,24 +34,28 @@ export default function Conduct() {
                         title="Hooters" 
                         color="WarmFlame"
                         detail="Hooters监控着集群的健康状态"
+                        link="http://hooters.xsky.com"
                     />
                     <Card
                         image="/images/license-logo.png"
                         title="License"
                         color="NightFade"
                         detail="你可以在license获得产品的认证"
+                        link="http://license.xsky.com/4.0"
                         />
                     <Card 
                         image="/images/oem-logo.png"
                         title="oem"
                         color="DeepBlue"
                         detail="ome包含你需要的xx"
+                        link="http://oem.xsky.com"
                         />
                     <Card
                         image="/images/Wiki-logo.png" 
                         title="wiki" 
                         color="PlumPlate"
                         detail="学城里藏了我们所有的记录和工作笔记"
+                        link="http://wiki.xsky.com/pages/viewpage.action?pageId=3538967"
                         />
                 </Box>
                 <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap='wrap' marginBottom='2rem'>
@@ -106,24 +64,28 @@ export default function Conduct() {
                         title="Issue" 
                         color="RainyAshville"
                         detail="欢迎提交优秀的issue，这样我们会变得更好"
+                        link="http://issue.xsky.com"
                     />
                     <Card
                         image="/images/italent-logo.png"
                         title="Italent"
                         color="WinterNeva"
                         detail="来看看有没有什么代办项，或者来查一查工资"
+                        link="http://italent.cn"                        
                         />
                     <Card 
                         image="/images/maycur-logo.png"
                         title="Maycur"
                         color="ItmeoBranding"
                         detail="报个销吧"
+                        link="https://www.maycur.com/"
                         />
                     <Card 
                         image="/images/logo.png"
                         title="Xsky"
                         color="FarawayRiver"
-                        detail="每天都能开心的工，每天都能准时的下班"
+                        detail="每天都能开心的工作，每天都能准时的下班"
+                        link="http://www.xsky.com"
                         />
                 </Box>
             </Banner>
@@ -163,6 +125,6 @@ export default function Conduct() {
                     </Grid>
                 </Detail>
             </Content>
-        </CusContainer>
+        </Container>
     )
 }

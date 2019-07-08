@@ -29,7 +29,7 @@ export default function HeaderIntro() {
                 先进的技术和产品为客户创造价值，提供企业级分布式软件定义存储产品，帮助客户实现数据中心架构革新。
             </Typography>
             <ButtonGroup>
-                <XskyButton>加入我们～</XskyButton>
+                <XskyButton href="https://www.xsky.com/career/?job=9-2#jobs" target="_blank">加入我们～</XskyButton>
             </ButtonGroup>
         </div>
     )

@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
@@ -52,24 +53,26 @@ const useStyles = makeStyles(theme => ({
 
 export default function MediaControlCard(props) {
   const classes = useStyles(props);
-  const { image, title, detail } = props;
+  const { image, title, detail, link } = props;
   return (
     <Card className={classes.card}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {title}
-          </Typography>
-          <Typography variant="body1">
-            {detail}
-          </Typography>
-        </CardContent>
-      </div>
-      <CardMedia
-        className={classes.cover}
-        image={image}
-        title={title}
-      />
+      <CardActionArea href={link} target="_blank">
+        <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <Typography component="h5" variant="h5">
+              {title}
+            </Typography>
+            <Typography variant="body1">
+              {detail}
+            </Typography>
+          </CardContent>
+        </div>
+        <CardMedia
+          className={classes.cover}
+          image={image}
+          title={title}
+        />
+      </CardActionArea>
     </Card>
   );
 }

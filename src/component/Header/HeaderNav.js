@@ -3,6 +3,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { smothScroll } from '../../utils';
 import { withStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
 
 const StyledTabs = withStyles({
   root:{
@@ -50,7 +51,11 @@ export default function HeaderNav() {
     return(
         <div>
             <StyledTabs value={value} onChange={handleChange}>
-              <StyledTab icon={<img alt="" src="/images/logo.png" />} />
+              <StyledTab icon={
+                <Link href="https://www.xsky.com/" target="_blank">
+                  <img alt="" src="/images/logo.png" />
+                </Link>
+                } />
               <StyledTab label="首页" />
               <StyledTab label="导航" />
               <StyledTab label="博客" />
