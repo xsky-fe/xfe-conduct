@@ -12,84 +12,45 @@ const useStyle = makeStyles(theme => ({
       },
 }))
 
+const links = [
+    {img: '/images/hooters.png', title: 'Hooters', color: 'WarmFlame', detail: 'Hooters监控着集群的健康状态', link: 'http://hooters.xsky.com'},
+    {img: '/images/license-logo.png', title: 'License', color: 'NightFade', detail: '你可以在license获得产品的认证', link: 'http://license.xsky.com/4.0'},
+    {img: '/images/oem-logo.png', title: 'oem', color: 'DeepBlue', detail: 'ome包含你需要的xx', link: 'http://oem.xsky.com'},
+    {img: '/images/Wiki-logo.png', title: 'wiki', color: 'PlumPlate', detail: '学城里藏了我们所有的记录和工作笔记', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=3538967'},
+    {img: '/images/Issue-logo.png', title: 'Issue', color: 'RainyAshville', detail: '欢迎提交优秀的issue，这样我们会变得更好', link: 'http://issue.xsky.com'},
+    {img: '/images/italent-logo.png', title: 'Italent', color: 'WinterNeva', detail: '来看看有没有什么代办项，或者来查一查工资', link: 'http://italent.cn'},
+    {img: '/images/maycur-logo.png', title: 'Maycur', color: 'ItmeoBranding', detail: '报个销吧', link: 'https://www.maycur.com/'},
+    {img: '/images/logo.png', title: 'Xsky', color: 'FarawayRiver', detail: '每天都能开心的工作，每天都能准时的下班', link: 'http://www.xsky.com'},
+]
+
 export default function Conduct() {
     const classes = useStyle();
-    function DiscoverMore(){
-        const top = document.documentElement.clientHeight;
-        smothScroll(top * 2 - 50);
-    }
     return(
-        <Container>
+        <Container id="conduct">
             <Banner>
                 <Box textAlign="left">
                     <Typography variant="h3" gutterBottom>快速开始一天的工作</Typography>
                     <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='2rem'>
                         <Typography variant="body1" gutterBottom>整理了在一天的工作之中可能会用到的网址</Typography>
-                        <BaseButton onClick = {()=> DiscoverMore()}>查看更多</BaseButton>
+                        <BaseButton href="#conduct-more" onClick={e => smothScroll(e, 'conduct-more')} >查看更多</BaseButton>
                     </Box>
                 </Box>
-                <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap='wrap' marginBottom='2rem'>
-                    <Card 
-                        image="/images/hooters.png"
-                        title="Hooters" 
-                        color="WarmFlame"
-                        detail="Hooters监控着集群的健康状态"
-                        link="http://hooters.xsky.com"
-                    />
-                    <Card
-                        image="/images/license-logo.png"
-                        title="License"
-                        color="NightFade"
-                        detail="你可以在license获得产品的认证"
-                        link="http://license.xsky.com/4.0"
-                        />
-                    <Card 
-                        image="/images/oem-logo.png"
-                        title="oem"
-                        color="DeepBlue"
-                        detail="ome包含你需要的xx"
-                        link="http://oem.xsky.com"
-                        />
-                    <Card
-                        image="/images/Wiki-logo.png" 
-                        title="wiki" 
-                        color="PlumPlate"
-                        detail="学城里藏了我们所有的记录和工作笔记"
-                        link="http://wiki.xsky.com/pages/viewpage.action?pageId=3538967"
-                        />
-                </Box>
-                <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap='wrap' marginBottom='2rem'>
-                    <Card 
-                        image="/images/Issue-logo.png"
-                        title="Issue" 
-                        color="RainyAshville"
-                        detail="欢迎提交优秀的issue，这样我们会变得更好"
-                        link="http://issue.xsky.com"
-                    />
-                    <Card
-                        image="/images/italent-logo.png"
-                        title="Italent"
-                        color="WinterNeva"
-                        detail="来看看有没有什么代办项，或者来查一查工资"
-                        link="http://italent.cn"                        
-                        />
-                    <Card 
-                        image="/images/maycur-logo.png"
-                        title="Maycur"
-                        color="ItmeoBranding"
-                        detail="报个销吧"
-                        link="https://www.maycur.com/"
-                        />
-                    <Card 
-                        image="/images/logo.png"
-                        title="Xsky"
-                        color="FarawayRiver"
-                        detail="每天都能开心的工作，每天都能准时的下班"
-                        link="http://www.xsky.com"
-                        />
-                </Box>
+                {links.slice(0, links.length / 4 + 1).map((item, index) => (
+                    <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap='wrap' marginBottom='2rem' key={item.title + index}>
+                        {links.slice(index * 4, (index + 1) * 4).map(item => (
+                            <Card 
+                                key={item.title}
+                                image={item.img}
+                                title={item.title}
+                                color={item.color}
+                                detail={item.detail}
+                                link={item.link}
+                            />
+                        ))}
+                    </Box>
+                ))}
             </Banner>
-            <Content>
+            <Content id="conduct-more">
                 <Detail>
                     <Grid item xs={5}>
                         <img alt="img1" src="images/wizardUI.png" />

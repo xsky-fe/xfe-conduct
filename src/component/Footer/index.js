@@ -13,6 +13,10 @@ const useStyle = makeStyles(theme => ({
         textAlign: 'left',
         display:'flex',
         justifyContent: 'space-between',
+        // fontSize: '.9em',
+        '& p': {
+            // fontSize: '.9em',
+        },
         '& ul': {
             float: 'left',
             marginRight: '1rem',
@@ -59,33 +63,33 @@ export default function Footer() {
                 <div className={classes["footer--border"]}></div>
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="subtitle2" gutterBottom>
                             关于我们
                         </Typography>
-                        <Typography variant="body1" gutterBottom>
+                        <Typography variant="caption" gutterBottom>
                             星辰天合（北京）数据科技有限公司（XSKY）是专注于软件定义基础架构（Software Defined Infrastructure） 业务的高新技术企业
                         </Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="subtitle2" gutterBottom>
                             我们的产品
                         </Typography>
                         {productList.slice(0, productList.length / 4 + 1).map((item, index) => (
                             <List key={item.name + index} className={classes['list']}>
                                 {productList.slice(index * 4, (index + 1) * 4).map(item => (
-                                    <Link key={item.name} href={item.link} color='inherit'>{item.name}</Link>
+                                    <Link variant="caption" key={item.name} href={item.link} color='inherit'>{item.name}</Link>
                                 ))}
                             </List>
                         ))}
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="subtitle2" gutterBottom>
                             联系我们
                         </Typography>
                         {contactList.slice(0, contactList.length / 4 + 1).map((item, index) => (
                             <List key={item.name + index} className={classes['list']}>
                                 {contactList.slice(index * 4, (index + 1) * 4).map(item => (
-                                    <Typography variant="body1" gutterBottom key={item.name}>{item.name}：{item.detial}</Typography>
+                                    <Typography variant="caption" gutterBottom key={item.name}>{item.name}：{item.detial}</Typography>
                                 ))}
                             </List>
                         ))}
@@ -101,8 +105,8 @@ export default function Footer() {
                     </IconButton>
                     <Typography variant="body1" gutterBottom>
                         <List className={classes['list']}>
-                            <Typography variant="body1" gutterBottom>{'2019 XSKY Inc. All Rights Reserved.'}</Typography>
-                            <Typography variant="body1" gutterBottom>{'京ICP备xxxxxxxx号'}</Typography>
+                            <Typography variant="caption" gutterBottom>{'2019 XSKY Inc. All Rights Reserved.'}</Typography>
+                            <Typography variant="caption" gutterBottom>{'京ICP备xxxxxxxx号'}</Typography>
                         </List>
                     </Typography>
                 </Container>

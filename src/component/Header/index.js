@@ -7,8 +7,8 @@ import './style.css';
 
 export default function Header() {
     return(
-        <Box display="flex" flexDirection="column" height="100vh">
-            <HeaderNav/>
+        <Box display="flex" flexDirection="column" height="100vh" id="home">
+            <HeaderNav id="home" />
             <Box display="flex" flexDirection="row" height="100%">
                 <HeaderIntro />
                 <HeaderMap />

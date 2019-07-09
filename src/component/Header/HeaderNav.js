@@ -1,9 +1,9 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { smothScroll } from '../../utils';
 import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
+import { smothScroll } from '../../utils';
 
 const StyledTabs = withStyles({
   root:{
@@ -43,10 +43,8 @@ const StyledTabs = withStyles({
 
 export default function HeaderNav() {
     const [value, setValue] = React.useState(1);
-    const top = document.documentElement.clientHeight;
     function handleChange(event, newValue) {
         setValue(newValue);
-        smothScroll((newValue-1) * top -  50);
     }
     return(
         <div>
@@ -56,9 +54,9 @@ export default function HeaderNav() {
                   <img alt="" src="/images/logo.png" />
                 </Link>
                 } />
-              <StyledTab label="首页" />
-              <StyledTab label="导航" />
-              <StyledTab label="博客" />
+              <StyledTab label="首页" component='a' href='#home' onClick={e => smothScroll(e, 'home')} />
+              <StyledTab label="导航" component='a' href='#conduct' onClick={e => smothScroll(e, 'conduct')} />
+              <StyledTab label="博客" component='a' href='http://xfe.blog.com' />
             </StyledTabs>
         </div>
     )
