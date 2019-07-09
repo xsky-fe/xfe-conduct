@@ -25,7 +25,7 @@ const Banner = withStyles({
 
 const Content = withStyles({
     root: {
-        borderRadius: 10,
+        borderRadius: '10px 0',
         boxShadow: '0 3px 5px 2px rgba(158, 158, 158, .3)',
         padding: 20,
     }
