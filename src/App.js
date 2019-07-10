@@ -1,14 +1,11 @@
 import React from 'react';
 import './App.css';
-
-import { Header, Conduct, Footer } from './component/index';
+import Router from './router';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Conduct />
-      <Footer />
+      <Router />
     </div>
   );
 }

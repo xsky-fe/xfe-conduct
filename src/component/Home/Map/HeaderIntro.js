@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { XskyButton } from '../../utils';
+import { XskyButton } from '../../../utils';
 
 const useStyles = makeStyles({
   outer: {

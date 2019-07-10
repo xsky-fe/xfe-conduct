@@ -1,9 +1,9 @@
 import Header from './Header';
-import Conduct from './Conduct';
+import Home from './Home';
 import Footer from './Footer';
 
 export {
     Header,
-    Conduct,
+    Home,
     Footer,
 }

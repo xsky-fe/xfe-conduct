@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { XskyButton, BaseButton, Card, smothScroll, Container, Banner, Content, Detail } from '../../utils';
+import { XskyButton, BaseButton, Card, smothScroll, Container, Banner, Content, Detail } from '../../../utils';
 
 const useStyle = makeStyles(theme => ({
     button1: {

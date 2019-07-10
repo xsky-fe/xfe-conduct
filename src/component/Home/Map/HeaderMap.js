@@ -2,7 +2,7 @@ import React from 'react';
 import echarts from 'echarts';
 import 'echarts/src/chart/map';
 import 'echarts/map/js/china.js';
-import option from '../../config/map_conf';
+import option from '../../../config/map_conf';
 
 class HeaderMap extends React.Component {
     constructor(props){
