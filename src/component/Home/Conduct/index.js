@@ -36,8 +36,9 @@ export default function Conduct() {
                     </Box>
                 </Box>
                 {links.slice(0, links.length / 4 + 1).map((item, index) => (
-                    <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap='wrap' marginBottom='2rem' key={item.title + index}>
+                    <Grid container spacing={3} key={item.title + index}>
                         {links.slice(index * 4, (index + 1) * 4).map(item => (
+                            <Grid item md={3} xs={12}>
                             <Card 
                                 key={item.title}
                                 image={item.img}
@@ -46,8 +47,9 @@ export default function Conduct() {
                                 detail={item.detail}
                                 link={item.link}
                             />
+                            </Grid>
                         ))}
-                    </Box>
+                    </Grid>
                 ))}
             </Banner>
             <Content id="conduct-more">

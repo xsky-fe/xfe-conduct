@@ -19,7 +19,7 @@ const color = {
 const useStyles = makeStyles(theme => ({
     card: {
         backgroundImage: props => color[props.color] || props.color,
-        maxWidth: props => props.type === "row" ? '100%' : '20%',
+        width: '100%',
     },
     area:{
       display: 'flex',

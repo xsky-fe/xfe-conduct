@@ -18,9 +18,7 @@ class HeaderMap extends React.Component {
         return(
             <div style={{
                 width: '100%',
-                maxWidth: '500px',
                 height: '100%',
-                float: 'left',
             }} ref={this.charts} />
         )
     }
