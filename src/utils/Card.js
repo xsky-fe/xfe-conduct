@@ -18,12 +18,13 @@ const color = {
 }
 const useStyles = makeStyles(theme => ({
     card: {
-        display: 'flex',
-        flexDirection: 'column',
-        float: 'left',
-        backgroundImage: props => color[props.color],
-        color: '#FFFFFF',
-        maxWidth: '20%',
+        backgroundImage: props => color[props.color] || props.color,
+        maxWidth: props => props.type === "row" ? '100%' : '20%',
+    },
+    area:{
+      display: 'flex',
+      flexDirection: props => props.type === "row" ? 'row' : 'column',
+      float: 'left',
     },
     details: {
         display: 'flex',
@@ -34,13 +35,13 @@ const useStyles = makeStyles(theme => ({
         padding: '5px 30px 0px 10px',
         width: '180px',
         maxWidth: '100%',
-        height: 90,
+        height: props => props.type === "row" ? 'auto' : 90,
         textAlign: 'left',
     },
     cover: {
         width: '100%',
-        height: 60,
-        backgroundSize: 60,
+        height: props => props.type === "row" ? '20px' : 60,
+        backgroundSize: props => props.type === "row" ? 'auto 20px' : 60,
         backgroundPosition: '90% 80%',
     },
     controls: {
@@ -52,11 +53,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MediaControlCard(props) {
-  const classes = useStyles(props);
   const { image, title, detail, link } = props;
+  const classes = useStyles(props);
   return (
     <Card className={classes.card}>
-      <CardActionArea href={link} target="_blank">
+      <CardActionArea href={link} target="_blank" className={classes.area}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">

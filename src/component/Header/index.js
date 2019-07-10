@@ -46,9 +46,16 @@ const StyledTab = withStyles(theme => ({
 const AdoperLink = React.forwardRef((props, ref) => <RouterLink to={props.to} innerRef={ref} {...props} />)
 
 export default function HeaderNav() {
-    const [value, setValue] = React.useState(1);
+    const [value, setValue] = React.useState(window.location.pathname);
     function handleChange(event, newValue) {
-        setValue(newValue);
+        console.log(event.target.parentNode.target)
+        if(
+            event.target.parentNode.href && 
+            event.target.parentNode.href.split('#').length !== 2 &&
+            event.target.parentNode.target !== "_blank"
+        ){
+            setValue(newValue);
+        }
     }
     return(
         <div>
@@ -58,9 +65,9 @@ export default function HeaderNav() {
                   <img alt="" src="/images/logo.png" />
                 </Link>
                 } />
-              <StyledTab label="首页" component={AdoperLink} to='/' />
+              <StyledTab label="首页" component={AdoperLink} to='/' value='/' />
               <StyledTab label="导航" component='a' href='/#conduct' onClick={e => smothScroll(e, 'conduct')} />
-              <StyledTab label="博客" component={AdoperLink} to='/blog' />
+              <StyledTab label="探索" component={AdoperLink} to='/explore' value='/explore' />
             </StyledTabs>
         </div>
     )
