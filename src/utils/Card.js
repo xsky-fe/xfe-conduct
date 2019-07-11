@@ -29,10 +29,11 @@ const useStyles = makeStyles(theme => ({
     details: {
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
     },
     content: {
         flex: '1 0 auto',
-        padding: '5px 30px 0px 10px',
+        padding: '1.25rem',
         width: '180px',
         maxWidth: '100%',
         height: props => props.type === "row" ? 'auto' : 90,

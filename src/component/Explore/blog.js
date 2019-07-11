@@ -20,7 +20,7 @@ const useStyle = makeStyles(theme => ({
     title: {
         padding: theme.spacing(2),
         textAlign: 'center',
-        width:'100%',
+        maxWidth:'100%',
     },
     post: {
         textAlign: 'left',
@@ -39,14 +39,14 @@ export default function Blog() {
         <Container className={classes.container}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Typography className={classes.title} variant="h3" gutterBottom>Build <strong>Anything</strong> in XSKY</Typography>
+                    <Typography className={classes.title} variant="h3" gutterBottom>Build <strong>Anything</strong> </Typography>
                     <div className={classes["header--border"]}></div>
                     <Box display="flex" flexDirection="row" justifyContent='space-between'>
                         <Typography variant="h5" gutterBottom>博客</Typography>
                         <Button>查看更多</Button>
                     </Box>
                 </Grid>
-                <Grid item xs={6} className={classes['post']}>
+                <Grid item md={6} xs={12} className={classes['post']}>
                     <Typography variant="caption" display="block" gutterBottom>
                         10/07/2019
                     </Typography>
@@ -61,7 +61,7 @@ export default function Blog() {
                     不断引入 CSP、Same-Site Cookies 等新技术来增强安全性，但是仍存在很多潜在的威胁，这需要前端技术人员不断进行“查漏补缺”。
                     </Typography>
                 </Grid>
-                <Grid item xs={6} className={classes['post']}>
+                <Grid item md={6} xs={12} className={classes['post']}>
                     <Typography variant="caption" display="block" gutterBottom>
                         10/07/2019
                     </Typography>

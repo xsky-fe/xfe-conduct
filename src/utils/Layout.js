@@ -9,7 +9,7 @@ const CusContainer = withStyles({
         '@media screen and (min-width: 600px)': {
             paddingLeft: 80,
             paddingRight: 80
-        }
+        },
     },
   })(props => <Container {...props} maxWidth="lg" />);
 

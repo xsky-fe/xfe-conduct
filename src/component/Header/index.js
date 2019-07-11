@@ -4,12 +4,10 @@ import Tab from '@material-ui/core/Tab';
 import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from 'react-router-dom';
-import { smothScroll } from '../../utils';
-import './style.css';
+import { smothScroll, Container } from '../../utils';
 
 const StyledTabs = withStyles({
   root:{
-    padding: '0 100px',
     '& .MuiTabs-scroller .MuiTabs-flexContainer': {
       float: 'right',
       width: '100%',
@@ -58,7 +56,7 @@ export default function HeaderNav() {
         }
     }
     return(
-        <div>
+        <Container>
             <StyledTabs value={value} onChange={handleChange}>
               <StyledTab icon={
                 <Link href="https://www.xsky.com/" target="_blank">
@@ -69,6 +67,6 @@ export default function HeaderNav() {
               <StyledTab label="导航" component='a' href='/#conduct' onClick={e => smothScroll(e, 'conduct')} />
               <StyledTab label="探索" component={AdoperLink} to='/explore' value='/explore' />
             </StyledTabs>
-        </div>
+        </Container>
     )
 }

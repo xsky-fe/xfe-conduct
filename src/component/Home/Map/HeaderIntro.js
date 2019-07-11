@@ -7,7 +7,7 @@ import { XskyButton } from '../../../utils';
 const useStyles = makeStyles({
   outer: {
     textAlign: 'left',
-    padding: '8rem',
+    paddingTop: '25%',
   },
 });
 export default function HeaderIntro() {

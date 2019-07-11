@@ -30,7 +30,7 @@ export default function Conduct() {
             <Banner>
                 <Box textAlign="left">
                     <Typography variant="h3" gutterBottom>快速开始一天的工作</Typography>
-                    <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='2rem'>
+                    <Box display='flex' justifyContent='space-between' alignItems='center' flexWrap="wrap" marginBottom='2rem'>
                         <Typography variant="body1" gutterBottom>整理了在一天的工作之中可能会用到的网址</Typography>
                         <BaseButton href="#conduct-more" onClick={e => smothScroll(e, 'conduct-more')} >查看更多</BaseButton>
                     </Box>
@@ -54,10 +54,10 @@ export default function Conduct() {
             </Banner>
             <Content id="conduct-more">
                 <Detail>
-                    <Grid item xs={5}>
+                    <Grid item md={5} xs={12}>
                         <img alt="img1" src="images/wizardUI.png" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item md={6} xs={12}>
                         <Typography variant="h3" gutterBottom>WIZARD UI</Typography>
                         <Typography variant="body1" gutterBottom>基于 React 16+ 和 Typescript 的组
                         件模块化解决方案，让设计和开发专注更好的用户体验。</Typography>
@@ -73,7 +73,7 @@ export default function Conduct() {
                     </Grid>
                 </Detail>
                 <Detail>
-                    <Grid item xs={6}>
+                    <Grid item md={6} xs={12}>
                         <Typography variant="h3" gutterBottom>GITHUB 主页</Typography>
                         <Typography variant="body1" gutterBottom>汇集了XFE所有开发的项目</Typography>
                         <Typography variant="body1" gutterBottom>你可以看到xfe-wizard、xsky的官方网站等等项目的源码，当然还有本项目的～</Typography>
@@ -83,7 +83,7 @@ export default function Conduct() {
                             <BaseButton href="https://github.com/xsky-fe">GitHub</BaseButton>
                         </ButtonGroup>
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item md={5} xs={12}>
                         <img alt="img1" src="images/XFEGITHUB.png" />
                     </Grid>
                 </Detail>

@@ -4,6 +4,7 @@ import 'echarts/src/chart/map';
 import 'echarts/map/js/china.js';
 import option from '../../../config/map_conf';
 
+
 class HeaderMap extends React.Component {
     constructor(props){
         super(props)
@@ -18,7 +19,7 @@ class HeaderMap extends React.Component {
         return(
             <div style={{
                 width: '100%',
-                height: '100%',
+                height: "calc(100vh - 20px)",
             }} ref={this.charts} />
         )
     }
