@@ -2,10 +2,9 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { XskyButton, BaseButton, Card, smothScroll, Container } from '../../utils';
+import {Card, Container } from '../../utils';
 
 const useStyle = makeStyles(theme => ({
     container: {
@@ -39,8 +38,8 @@ export default function Blog() {
         <Container className={classes.container}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Typography className={classes.title} variant="h3" gutterBottom>Build <strong>Anything</strong> </Typography>
-                    <div className={classes["header--border"]}></div>
+                    <Typography className={classes.title} variant="h3" gutterBottom>Build <strong>Anything</strong> in XSKY</Typography>
+                    <div className={classes["header--border"]} id="blog" data-navname="博客"></div>
                     <Box display="flex" flexDirection="row" justifyContent='space-between'>
                         <Typography variant="h5" gutterBottom>博客</Typography>
                         <Button>查看更多</Button>

@@ -1,8 +1,7 @@
 export default function smothScroll(e, id) {
     e.preventDefault();
-    const scrollElemId = id;
     
-    const scrollEndElem = document.getElementById(scrollElemId);
+    const scrollEndElem = document.getElementById(id);
 
     const scrollEndElemTop = scrollEndElem.offsetTop - 20;
     

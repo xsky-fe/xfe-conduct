@@ -1,14 +1,27 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Header, Home, Footer, Explore } from '../component/index';
+import { withRouter } from 'react-router';
+
+function App(props){
+    return(
+        <div>
+            <Header params={props} />
+            {props.children}
+            <Footer />
+        </div>
+    )
+}
+
+const AppContainer = withRouter(App);
 
 export default function RouterIndex(params) {
     return(
         <Router>
-            <Header params={params} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/explore" component={Explore} />            
-            <Footer />
+            <AppContainer>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/explore" component={Explore} />            
+            </AppContainer>
         </Router>
     )
 }

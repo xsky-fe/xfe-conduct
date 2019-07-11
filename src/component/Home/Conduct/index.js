@@ -26,7 +26,7 @@ const links = [
 export default function Conduct() {
     const classes = useStyle();
     return(
-        <Container id="conduct">
+        <Container id="conduct" data-navname="导航">
             <Banner>
                 <Box textAlign="left">
                     <Typography variant="h3" gutterBottom>快速开始一天的工作</Typography>
@@ -38,15 +38,15 @@ export default function Conduct() {
                 {links.slice(0, links.length / 4 + 1).map((item, index) => (
                     <Grid container spacing={3} key={item.title + index}>
                         {links.slice(index * 4, (index + 1) * 4).map(item => (
-                            <Grid item md={3} xs={12}>
-                            <Card 
-                                key={item.title}
-                                image={item.img}
-                                title={item.title}
-                                color={item.color}
-                                detail={item.detail}
-                                link={item.link}
-                            />
+                            <Grid item md={3} sm={6} xs={12} key={item.title}>
+                                <Card 
+                                    key={item.title}
+                                    image={item.img}
+                                    title={item.title}
+                                    color={item.color}
+                                    detail={item.detail}
+                                    link={item.link}
+                                />
                             </Grid>
                         ))}
                     </Grid>

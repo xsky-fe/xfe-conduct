@@ -27,18 +27,22 @@ const useStyle = makeStyles(theme => ({
         backgroundColor: '#6b58c4',
         height: '.25rem',
         marginBottom: '4rem',
-      },
-      'list': {
-          margin: 1,
-          display:'flex',
-          flexDirection: 'column',
-      },
-      'sub--footer': {
-        boxShadow: '0 -0.1875rem 0.125rem #efefef',
-        left: 0,
-        position: 'absolute',
-        width: '100%',
-      }
+    },
+    'list': {
+        margin: 1,
+        display:'flex',
+        flexDirection: 'column',
+    },
+    'sub--footer': {
+    boxShadow: '0 -0.1875rem 0.125rem #efefef',
+    left: 0,
+    position: 'absolute',
+    width: '100%',
+    },
+    logo: {
+        height: '2.25rem'
+    }
+
 }))
 
 const productList = [
@@ -100,7 +104,7 @@ export default function Footer() {
                 <Container className={classes['container']}>
                     <IconButton>
                         <Link href="https://www.xsky.com/" target="_blank">
-                            <img alt="" src="/images/logo.png" />
+                            <img alt="" src="/images/logo.png" className={classes.logo} />
                         </Link>
                     </IconButton>
                     <Typography variant="body1" gutterBottom>

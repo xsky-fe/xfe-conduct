@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const CusContainer = withStyles({
     root: {
-        '@media screen and (min-width: 600px)': {
+        '@media screen and (min-width: 960px)': {
             paddingLeft: 80,
             paddingRight: 80
         },
