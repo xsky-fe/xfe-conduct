@@ -5,11 +5,14 @@ import 'echarts/map/js/china.js';
 import option from '../../../config/map_conf';
 
 const styles = {
-    width: '100%',
-    height: "calc(100vh - 20px)",
+    width: '80vw',
+    height: "80vw",
+    maxWidth: '100vh',
+    maxHeight: '100vh',
+    margin: '0 auto',
 };
 
-class HeaderMap extends React.Component {
+class Map extends React.Component {
     constructor(props){
         super(props)
         this.option = option;
@@ -26,4 +29,4 @@ class HeaderMap extends React.Component {
     }
 }
 
-export default HeaderMap;
+export default Map;

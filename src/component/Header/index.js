@@ -107,6 +107,7 @@ export default function HeaderNav(props) {
             <StyledTab key={i.url} label={i.title} component='a' href={`/#${i.url}`} onClick={e => smothScroll(e, i.url)} />
           ))}
           <StyledTab label="探索" component={AdoperLink} to='/explore' value='/explore' />
+          <StyledTab label="关于" component={AdoperLink} to='/about' value='/about' />
         </StyledTabs>
       </Hidden>
       <Hidden only={['xl', 'lg', 'md', 'sm']}>
@@ -116,7 +117,7 @@ export default function HeaderNav(props) {
           </Button>
           <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
             Open Menu
-                </Button>
+          </Button>
         </Box>
         <Menu
           id="simple-menu"
@@ -126,8 +127,11 @@ export default function HeaderNav(props) {
           onClose={handleClose}
         >
           <MenuItem component={AdoperLink} to='/' onClick={handleClose}>首页</MenuItem>
-          <MenuItem component='a' href='/#conduct' onClick={handleClose.bind(null, 'conduct')}>导航</MenuItem>
+          {nav.map(i => (
+            <MenuItem key={i.url} component='a' href={`/#${i.url}`} onClick={handleClose.bind(null, i.url)}>{i.title}</MenuItem>
+          ))}
           <MenuItem component={AdoperLink} to='/explore' onClick={handleClose}>探索</MenuItem>
+          <MenuItem component={AdoperLink} to='/about' onClick={handleClose}>关于</MenuItem>
         </Menu>
       </Hidden>
     </Container>

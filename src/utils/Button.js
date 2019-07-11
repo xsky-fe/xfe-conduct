@@ -11,6 +11,7 @@ const XskyButton = withStyles({
         color: 'white',
         padding: '0 30px',
         boxShadow: '0 3px 5px 2px rgba(107, 88, 196, .3)',
+        marginTop: '.25rem',        
     }
 })(props => <Button {...props} />)
 
@@ -21,6 +22,7 @@ const BaseButton = withStyles({
         border: 0,
         padding: '0 30px',
         boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
+        marginTop: '.25rem',
     }
 })(props => <Button {...props} />)
 
