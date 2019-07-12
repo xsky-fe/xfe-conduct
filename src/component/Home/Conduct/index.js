@@ -15,33 +15,29 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import Card from '@material-ui/core/Card';
+import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import lodash from 'lodash';
-import { BaseButton, smothScroll, Container, feedSort, Card as CusCard } from '../../../utils';
+import { BaseButton, smothScroll, Container, feedSort, Card, CardDrawer } from '../../../utils';
 
 const links = {
-    Hooters: {title: 'Hooters', img: '/images/hooters.png', color: 'WarmFlame', detail: '监控集群的健康状态', link: 'http://hooters.xsky.com'},
-    License: {title: 'License',img: '/images/license-logo.png', color: 'NightFade', detail: '获得产品的认证', link: 'http://license.xsky.com/4.0'},
-    OEM: {title: 'OEM', img: '/images/oem-logo.png', color: 'DeepBlue', detail: 'ome包含你需要的xx', link: 'http://oem.xsky.com'},
+    Hooters: {title: 'Hooters', img: '/images/hooters.png', color: 'WarmFlame', detail: '监控集群的健康状态', link: 'http://hooters.xsky.com', extra: {expanded: false}},
+    License: {title: 'License',img: '/images/license-logo.png', color: 'NightFade', detail: '获得产品的认证', link: 'http://license.xsky.com/4.0', extra: {expanded: true}},
+    OEM: {title: 'OEM', img: '/images/oem-logo.png', color: 'DeepBlue', detail: 'ome包含你需要的xx', link: 'http://oem.xsky.com', extra: {expanded: false}},
     Wiki: {title: 'Wiki', img: '/images/Wiki-logo.png', color: 'PlumPlate', detail: '记录和工作笔记', link: 'http://wiki.xsky.com'},
     Issue: {title: 'Issue', img: '/images/Issue-logo.png', color: 'RainyAshville', detail: '欢迎提交优秀的issue', link: 'http://issue.xsky.com'},
-    Italent: {title: 'Italent', img: '/images/italent-logo.png', color: 'WinterNeva', detail: '人事管理', link: 'http://italent.cn'},
-    Maycur: {title: 'Maycur', img: '/images/maycur-logo.png', color: 'ItmeoBranding', detail: '报销平台', link: 'https://www.maycur.com/'},
+    Italent: {title: 'Italent', img: '/images/italent-logo.png', color: 'WinterNeva', detail: '人事管理', link: 'http://italent.cn', extra: {expanded: false}},
+    Maycur: {title: 'Maycur', img: '/images/maycur-logo.png', color: 'ItmeoBranding', detail: '报销平台', link: 'https://www.maycur.com/', extra: {expanded: false}},
 }
 
 const contents = {
-    Hooters: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }],
+    Hooters: [],
     License: [
         {title: 'License 4.0', link: 'http://license.xsky.com/4.0'},
         {title: 'License 3.0', link: 'http://license.xsky.com/'},
     ],
-    OEM: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }],
+    OEM: [],
     Wiki: [
         {title: 'ISSUE Tode', link: 'http://wiki.xsky.com/display/RDWIZ/ISSUE+Todo', star: true},
         {title: '2019 Q2', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q2', star: true},
@@ -54,12 +50,8 @@ const contents = {
         {title: 'XSCALER项目', link: 'http://issue.xsky.com/projects/XSCALER', star: true},
         {title: 'Wizard项目', link: 'http://issue.xsky.com/browse/WIZARD', star: true},  
     ],
-    Italent: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }],
-    Maycur: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }]
+    Italent: [],
+    Maycur: []
 }
 
 const useStyle = makeStyles(theme => ({
@@ -94,9 +86,17 @@ const useStyle = makeStyles(theme => ({
     column: {
         flexBasis: '50%',
     },
-    helper: {
-        borderLeft: `2px solid ${theme.palette.divider}`,
+    full: {
+        flexBasis: '100%',
+    },
+    zero: {
+        flexBasis: '0%',
+    },
+    drawer: {
         padding: theme.spacing(1, 2),
+        flexShrink: 0,
+        maxWidth: 200,
+        position: 'relative'
     },
     link: {
         color: theme.palette.primary.main,
@@ -113,6 +113,9 @@ const useStyle = makeStyles(theme => ({
     'conduct-container': {
         display: 'block',
         columnCount: 2,
+        '@media screen and (max-width: 600px)': {
+            columnCount: 1,
+        }
     },
     'conduct-item': {
         breakInside: 'avoid',
@@ -123,7 +126,14 @@ const useStyle = makeStyles(theme => ({
 
 export default function Conduct() {
     const classes = useStyle();
-    
+    const [open, setOpen] = React.useState(true);
+    function handleDrawerOpen() {
+        setOpen(true);
+    }
+
+    function handleDrawerClose() {
+        setOpen(false);
+    }
     const feedArray = [];
     lodash.forEach(contents, (value, key) => {
         feedArray.push({
@@ -132,12 +142,11 @@ export default function Conduct() {
         })
     });
     const { left, right } = feedSort(feedArray);
-    console.log(left, right)
     function renderExp(item){
         return (
-            <ExpansionPanel defaultExpanded>
+            <ExpansionPanel defaultExpanded {...item.extra}>
                 <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={!item.extra || item.extra.expanded ? <ExpandMoreIcon /> : null}
                     aria-controls="panel1c-content"
                     id="panel1c-header"
                 >
@@ -150,7 +159,7 @@ export default function Conduct() {
                     </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.details}>
-                    <div className={classes.column}>
+                    <div className={open ? classes.column : classes.full}>
                         <List component="nav" className={classes.list} aria-label="Contacts">
                             {contents[item.title].map(content => (
                                 <div>
@@ -165,7 +174,15 @@ export default function Conduct() {
                             ))}
                         </List>
                     </div>
-                    <div className={clsx(classes.column, classes.helper)}>
+                    {!item.extra || !item.extra.expanded ? <Drawer
+                        variant="persistent"
+                        className={clsx(open ? classes.column : classes.zero, classes.drawer)}
+                        anchor="right"
+                        open={open}
+                        classes={{
+                            paper: classes.drawer,
+                        }}
+                    >
                         <FormControl fullWidth className={classes.margin}>
                             <Typography variant="caption">
                                 添加一个快捷访问
@@ -184,7 +201,7 @@ export default function Conduct() {
                                 提交审核
                             </BaseButton>
                         </FormControl>
-                    </div>
+                    </Drawer>: null}
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         )
@@ -202,10 +219,10 @@ export default function Conduct() {
                 {left.map((_, index) => (
                     <React.Fragment>
                         <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                            {left[index] ? renderExp(links[left[index].item]) : <CusCard
+                            {left[index] ? <CardDrawer contents={contents} item = {links[left[index].item]} /> : <Card
                                 image="/images/logo.png"
                                 detail={
-                                        <BaseButton>添加访问卡片</BaseButton>
+                                    <BaseButton>添加访问卡片</BaseButton>
                                 }
                                 type="row"
                             />}
@@ -215,10 +232,10 @@ export default function Conduct() {
                 {right.map((_, index) => (
                     <React.Fragment>
                         <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                            {right[index] ? renderExp(links[right[index].item]) : <CusCard
+                            {right[index] ? <CardDrawer contents={contents} item = {links[right[index].item]} /> : <Card
                                 image="/images/logo.png"
                                 detail={
-                                        <BaseButton>添加访问卡片</BaseButton>
+                                    <BaseButton>添加访问卡片</BaseButton>
                                 }
                                 type="row"
                             />}
