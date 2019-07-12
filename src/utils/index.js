@@ -1,6 +1,7 @@
 import { XskyButton, BaseButton } from "./Button";
 import Card from "./Card";
-import smothScroll from "./SmothScroll";
+import smothScroll from "./smothScroll";
+import feedSort from './feedSort';
 import { CusContainer as Container, Banner, Content, Detail } from './Layout';
 
 export {
@@ -12,4 +13,5 @@ export {
     Banner,
     Content,
     Detail,
+    feedSort,
 }

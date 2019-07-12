@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -15,9 +15,52 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { BaseButton, smothScroll, Container } from '../../../utils';
+import lodash from 'lodash';
+import { BaseButton, smothScroll, Container, feedSort, Card as CusCard } from '../../../utils';
+
+const links = {
+    Hooters: {title: 'Hooters', img: '/images/hooters.png', color: 'WarmFlame', detail: '监控集群的健康状态', link: 'http://hooters.xsky.com'},
+    License: {title: 'License',img: '/images/license-logo.png', color: 'NightFade', detail: '获得产品的认证', link: 'http://license.xsky.com/4.0'},
+    OEM: {title: 'OEM', img: '/images/oem-logo.png', color: 'DeepBlue', detail: 'ome包含你需要的xx', link: 'http://oem.xsky.com'},
+    Wiki: {title: 'Wiki', img: '/images/Wiki-logo.png', color: 'PlumPlate', detail: '记录和工作笔记', link: 'http://wiki.xsky.com'},
+    Issue: {title: 'Issue', img: '/images/Issue-logo.png', color: 'RainyAshville', detail: '欢迎提交优秀的issue', link: 'http://issue.xsky.com'},
+    Italent: {title: 'Italent', img: '/images/italent-logo.png', color: 'WinterNeva', detail: '人事管理', link: 'http://italent.cn'},
+    Maycur: {title: 'Maycur', img: '/images/maycur-logo.png', color: 'ItmeoBranding', detail: '报销平台', link: 'https://www.maycur.com/'},
+}
+
+const contents = {
+    Hooters: [{
+        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
+    }],
+    License: [
+        {title: 'License 4.0', link: 'http://license.xsky.com/4.0'},
+        {title: 'License 3.0', link: 'http://license.xsky.com/'},
+    ],
+    OEM: [{
+        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
+    }],
+    Wiki: [
+        {title: 'ISSUE Tode', link: 'http://wiki.xsky.com/display/RDWIZ/ISSUE+Todo', star: true},
+        {title: '2019 Q2', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q2', star: true},
+        {title: '2019 Q3', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q3', star: true},
+        {title: '开发环境', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=24647829'},
+    ],
+    Issue: [
+        {title: '当前搜索', link: 'http://issue.xsky.com/issues', star: true},
+        {title: '分配给我未解决的问题', link: 'http://issue.xsky.com/issues/?filter=-1', star: true},
+        {title: 'XSCALER项目', link: 'http://issue.xsky.com/projects/XSCALER', star: true},
+        {title: 'Wizard项目', link: 'http://issue.xsky.com/browse/WIZARD', star: true},  
+    ],
+    Italent: [{
+        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
+    }],
+    Maycur: [{
+        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
+    }]
+}
 
 const useStyle = makeStyles(theme => ({
     title: {
@@ -67,48 +110,85 @@ const useStyle = makeStyles(theme => ({
         maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
     },
+    'conduct-container': {
+        display: 'block',
+        columnCount: 2,
+    },
+    'conduct-item': {
+        breakInside: 'avoid',
+        height: 'min-content',
+        maxWidth: '100%',
+    },
 }))
-
-const links = [
-    {img: '/images/hooters.png', title: 'Hooters', color: 'WarmFlame', detail: '监控集群的健康状态', link: 'http://hooters.xsky.com'},
-    {img: '/images/license-logo.png', title: 'License', color: 'NightFade', detail: '获得产品的认证', link: 'http://license.xsky.com/4.0'},
-    {img: '/images/oem-logo.png', title: 'OEM', color: 'DeepBlue', detail: 'ome包含你需要的xx', link: 'http://oem.xsky.com'},
-    {img: '/images/Wiki-logo.png', title: 'Wiki', color: 'PlumPlate', detail: '记录和工作笔记', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=3538967'},
-    {img: '/images/Issue-logo.png', title: 'Issue', color: 'RainyAshville', detail: '欢迎提交优秀的issue', link: 'http://issue.xsky.com'},
-    {img: '/images/italent-logo.png', title: 'Italent', color: 'WinterNeva', detail: '人事管理', link: 'http://italent.cn'},
-    {img: '/images/maycur-logo.png', title: 'Maycur', color: 'ItmeoBranding', detail: '报销平台', link: 'https://www.maycur.com/'},
-]
-
-const contents = {
-    Hooters: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }],
-    License: [
-        {title: 'License 4.0', link: 'http://license.xsky.com/4.0'},
-        {title: 'License 3.0', link: 'http://license.xsky.com/'},
-    ],
-    OEM: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }],
-    Wiki: [
-        {title: 'ISSUE Tode', link: 'http://wiki.xsky.com/display/RDWIZ/ISSUE+Todo', star: true},
-        {title: '2019 Q2', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q2', star: true},
-        {title: '2019 Q3', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q3', star: true},
-        {title: '开发环境', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=24647829'},
-    ],
-    Issue: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }],
-    Italent: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }],
-    Maycur: [{
-        title: 'cluster-9d45ec1f', link: 'http://hooters.xsky.com/'
-    }]
-}
 
 export default function Conduct() {
     const classes = useStyle();
+    
+    const feedArray = [];
+    lodash.forEach(contents, (value, key) => {
+        feedArray.push({
+            item: key,
+            len: value.length <= 3 ? 58 : value.length * 10 + 28, // 初始状态相当于留行，多余四行之后才
+        })
+    });
+    const { left, right } = feedSort(feedArray);
+    console.log(left, right)
+    function renderExp(item){
+        return (
+            <ExpansionPanel defaultExpanded>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1c-content"
+                    id="panel1c-header"
+                >
+                    <div className={classes.column}>
+                        <Typography className={classes.heading}>{item.title}</Typography>
+                    </div>
+                    <div className={classes.column}>
+                        <img className={classes.logo} alt="" src={item.img} />&nbsp;
+                        <Link className={classes.secondaryHeading} href={item.link} target="_blank">{item.detail}</Link>
+                    </div>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails className={classes.details}>
+                    <div className={classes.column}>
+                        <List component="nav" className={classes.list} aria-label="Contacts">
+                            {contents[item.title].map(content => (
+                                <div>
+                                    <ListItem className={classes.item} component='a' target="_blank" button href={content.link}>
+                                        <ListItemIcon className={classes.icon}>
+                                        <StarIcon color = {content.star ? "secondary" : "inherit"} />
+                                        </ListItemIcon>
+                                        <ListItemText primary={content.title} />
+                                    </ListItem>
+                                    <Divider />
+                                </div>
+                            ))}
+                        </List>
+                    </div>
+                    <div className={clsx(classes.column, classes.helper)}>
+                        <FormControl fullWidth className={classes.margin}>
+                            <Typography variant="caption">
+                                添加一个快捷访问
+                            </Typography>
+                            <TextField
+                                label={item.link.length > 30 ? item.link.slice(0, 30) + '...' : item.link}
+                                defaultValue="/"
+                                className={classes.textField}
+                            />
+                            <TextField
+                                label="名称"
+                                defaultValue=""
+                                className={classes.textField}
+                            />
+                            <BaseButton variant="outlined">
+                                提交审核
+                            </BaseButton>
+                        </FormControl>
+                    </div>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+        )
+    }
     return(
         <Container id="conduct" data-navname="导航">
             <Box textAlign="left" marginTop="2.25rem">
@@ -118,66 +198,34 @@ export default function Conduct() {
                     <BaseButton href="#conduct-more" onClick={e => smothScroll(e, 'conduct-more')} >查看更多</BaseButton>
                 </Box>
             </Box>
-            {links.slice(0, links.length / 2 + 1).map((item, index) => (
-                <Grid container spacing={2} key={item.title + index}>
-                    {links.slice(index * 2, (index + 1) * 2).map(item => (
-                        <Grid item sm={6} xs={12} key={item.title}>
-                            <ExpansionPanel defaultExpanded>
-                                <ExpansionPanelSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1c-content"
-                                    id="panel1c-header"
-                                >
-                                    <div className={classes.column}>
-                                        <Typography className={classes.heading}>{item.title}</Typography>
-                                    </div>
-                                    <div className={classes.column}>
-                                        <img className={classes.logo} alt="" src={item.img} />&nbsp;
-                                        <Link className={classes.secondaryHeading} href={item.link} target="_blank">{item.detail}</Link>
-                                    </div>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails className={classes.details}>
-                                    <div className={classes.column}>
-                                        <List component="nav" className={classes.list} aria-label="Contacts">
-                                            {contents[item.title].map(content => (
-                                                <div>
-                                                    <ListItem className={classes.item} component='a' target="_blank" button href={content.link}>
-                                                        <ListItemIcon className={classes.icon}>
-                                                        <StarIcon color = {content.star ? "secondary" : "inherit"} />
-                                                        </ListItemIcon>
-                                                        <ListItemText primary={content.title} />
-                                                    </ListItem>
-                                                    <Divider />
-                                                </div>
-                                            ))}
-                                        </List>
-                                    </div>
-                                    <div className={clsx(classes.column, classes.helper)}>
-                                        <FormControl fullWidth className={classes.margin}>
-                                            <Typography variant="caption">
-                                                添加一个快捷访问
-                                            </Typography>
-                                            <TextField
-                                                label={item.link.length > 30 ? item.link.slice(0, 30) + '...' : item.link}
-                                                defaultValue="/"
-                                                className={classes.textField}
-                                            />
-                                            <TextField
-                                                label="名称"
-                                                defaultValue=""
-                                                className={classes.textField}
-                                            />
-                                            <BaseButton variant="outlined">
-                                                提交审核
-                                            </BaseButton>
-                                        </FormControl>
-                                    </div>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
+            <Grid container spacing={3} className={classes['conduct-container']}>
+                {left.map((_, index) => (
+                    <React.Fragment>
+                        <Grid item sm={6} xs={12} className={classes['conduct-item']}>
+                            {left[index] ? renderExp(links[left[index].item]) : <CusCard
+                                image="/images/logo.png"
+                                detail={
+                                        <BaseButton>添加访问卡片</BaseButton>
+                                }
+                                type="row"
+                            />}
                         </Grid>
-                    ))}
-                </Grid>
-            ))}
+                    </React.Fragment>
+                ))}
+                {right.map((_, index) => (
+                    <React.Fragment>
+                        <Grid item sm={6} xs={12} className={classes['conduct-item']}>
+                            {right[index] ? renderExp(links[right[index].item]) : <CusCard
+                                image="/images/logo.png"
+                                detail={
+                                        <BaseButton>添加访问卡片</BaseButton>
+                                }
+                                type="row"
+                            />}
+                        </Grid>
+                    </React.Fragment>
+                ))}
+            </Grid>
         </Container>
     )
 }
