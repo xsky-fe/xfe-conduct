@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Typed from 'typed.js';
 import { XskyButton, Container } from '../../../utils';
 
 const useStyles = makeStyles({
@@ -39,10 +40,17 @@ const useStyles = makeStyles({
 });
 export default function Intro() {
     const classes = useStyles();
+    useEffect(()=>{
+        const options = {
+            strings: ["XSKY<br />前端团队"],
+            typeSpeed: 40
+        }
+        const typed = new Typed(".typed", options);
+    })
     return(
         <Container className={classes.outer}>
-             <Typography variant="h3" className={classes.title} gutterBottom>
-                Xsky前端团队
+            <Typography variant="h3" className={classes.title} gutterBottom>
+                <span className="typed"></span>
             </Typography>
             <Typography variant="caption" className={classes.location} gutterBottom>
                 成都、长沙、西安、南宁、深圳、广州、上海、大连、哈尔滨、南昌

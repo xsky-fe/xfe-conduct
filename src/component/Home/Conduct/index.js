@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { BaseButton, Card, smothScroll, Container, Banner, Content, Detail } from '../../../utils';
+import { BaseButton, smothScroll, Container } from '../../../utils';
 
 const useStyle = makeStyles(theme => ({
     title: {
@@ -26,6 +26,10 @@ const useStyle = makeStyles(theme => ({
             fontSize: '1.5rem',
             lineHeight: '2rem',
         }
+    },
+    logo: {
+        height: '1rem',
+        verticalAlign: 'text-bottom',
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -128,6 +132,7 @@ export default function Conduct() {
                                         <Typography className={classes.heading}>{item.title}</Typography>
                                     </div>
                                     <div className={classes.column}>
+                                        <img className={classes.logo} alt="" src={item.img} />&nbsp;
                                         <Link className={classes.secondaryHeading} href={item.link} target="_blank">{item.detail}</Link>
                                     </div>
                                 </ExpansionPanelSummary>
