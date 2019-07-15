@@ -1,38 +1,40 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import StarIcon from '@material-ui/icons/Star';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Drawer from '@material-ui/core/Drawer';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import FormControl from '@material-ui/core/FormControl';
 import { BaseButton } from './Button';
 import TextField from '@material-ui/core/TextField';
 
-
-
 const useStyle = makeStyles(theme =>({
+    avatar: {
+        color: '#fff',
+        background: 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
+    },
     logo: {
         width: '2.25rem',
         verticalAlign: 'text-bottom',
+    },
+    header: {
+        background: 'linear-gradient(45deg, #ffffff 95%, #6b58c4 95%)',
+        '& a': {
+            textDecoration: 'blink',
+        },
+        '& a:hover': {
+            color: '#000'
+        }
     },
     secondaryHeading: {
         fontSize: theme.typography.pxToRem(15),
@@ -48,23 +50,13 @@ const useStyle = makeStyles(theme =>({
     details: {
         alignItems: 'center',
         display: 'flex',
-        padding: '8px 24px 24px',
+        padding: theme.spacing(1, 3, 3),
     },
     column: {
         flexBasis: '50%',
-        position: 'relative',
     },
     full: {
         flexBasis: '100%',
-    },
-    zero: {
-        flexBasis: '0%',
-        position: 'static !important',
-    },
-    drawer: {
-        padding: theme.spacing(1, 2),
-        flexShrink: 0,
-        maxWidth: 200,
     },
     link: {
         color: theme.palette.primary.main,
@@ -89,29 +81,41 @@ const useStyle = makeStyles(theme =>({
         height: 'min-content',
         maxWidth: '100%',
     },
+    form: {
+        padding: theme.spacing(1, 2),
+        borderLeft: 'solid 1px #eee',
+        height: 151,
+        flexBasis: props => props.open ? '50%' : '0%',
+        position: 'relative',
+        right: props => props.open ? 0 : '-50%',
+        visibility: props => props.open ? 'visible' : 'hidden',
+        transition: 'right 350ms ease',
+    }
 }))
 
 export default function CardDrawer(props) {
     const { item, contents } = props;
     const [open, setOpen] = React.useState(false);
-    function handleDrawerOpen() {
-        setOpen(true);
+    function handleDrawerToggle() {
+        setOpen(!open);
     }
-
-    function handleDrawerClose() {
-        setOpen(false);
-    }
-    const classes = useStyle();
+    const classes = useStyle(
+        {open}
+    );
     return(
         <Card className={classes.card}>
             <CardHeader
+                className={classes.header}
                 avatar={
-                    <Avatar aria-label="Recipe">
+                    <Avatar aria-label="Recipe" className={classes.avatar}>
                         <img className={classes.logo} alt="" src={item.img} />
                     </Avatar>
                 }
                 action={
-                    !item.extra || item.extra.expanded ? <IconButton aria-label="Settings">
+                    !item.extra || item.extra.expanded ? <IconButton
+                        aria-label="toggle drawer"
+                        onClick={handleDrawerToggle}
+                        >
                         <MoreVertIcon />
                     </IconButton> : null
                 }
@@ -134,34 +138,24 @@ export default function CardDrawer(props) {
                         ))}
                     </List>
                 </div>
-                <Drawer
-                        variant="persistent"
-                        className={clsx(classes.drawer, open ? classes.column : classes.zero)}
-                        anchor="right"
-                        open={open}
-                        classes={{
-                            paper: classes.drawer,
-                        }}
-                    >
-                    <FormControl fullWidth className={classes.margin}>
-                        <Typography variant="caption">
-                            添加一个快捷访问
-                        </Typography>
-                        <TextField
-                            label={item.link.length > 30 ? item.link.slice(0, 30) + '...' : item.link}
-                            defaultValue="/"
-                            className={classes.textField}
-                        />
-                        <TextField
-                            label="名称"
-                            defaultValue=""
-                            className={classes.textField}
-                        />
-                        <BaseButton variant="outlined">
-                            提交审核
-                        </BaseButton>
-                    </FormControl>
-                </Drawer>
+                <FormControl fullWidth className={classes.form}>
+                    <Typography variant="caption">
+                        添加一个快捷访问
+                    </Typography>
+                    <TextField
+                        label={item.link.length > 30 ? item.link.slice(0, 30) + '...' : item.link}
+                        defaultValue="/"
+                        className={classes.textField}
+                    />
+                    <TextField
+                        label="名称"
+                        defaultValue=""
+                        className={classes.textField}
+                    />
+                    <BaseButton variant="outlined">
+                        提交审核
+                    </BaseButton>
+                </FormControl>
             </CardContent> : null}
         </Card>
     )

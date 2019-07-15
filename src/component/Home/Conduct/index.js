@@ -1,23 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import StarIcon from '@material-ui/icons/Star';
-import Divider from '@material-ui/core/Divider';
-import Link from '@material-ui/core/Link';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import lodash from 'lodash';
 import { BaseButton, smothScroll, Container, feedSort, Card, CardDrawer } from '../../../utils';
 
@@ -42,6 +27,7 @@ const contents = {
         {title: 'ISSUE Tode', link: 'http://wiki.xsky.com/display/RDWIZ/ISSUE+Todo', star: true},
         {title: '2019 Q2', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q2', star: true},
         {title: '2019 Q3', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q3', star: true},
+        {title: '开发环境', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=24647829'},
         {title: '开发环境', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=24647829'},
     ],
     Issue: [
@@ -80,24 +66,6 @@ const useStyle = makeStyles(theme => ({
     icon: {
         minWidth: '2rem'
     },
-    details: {
-        alignItems: 'center',
-    },
-    column: {
-        flexBasis: '50%',
-    },
-    full: {
-        flexBasis: '100%',
-    },
-    zero: {
-        flexBasis: '0%',
-    },
-    drawer: {
-        padding: theme.spacing(1, 2),
-        flexShrink: 0,
-        maxWidth: 200,
-        position: 'relative'
-    },
     link: {
         color: theme.palette.primary.main,
         textDecoration: 'none',
@@ -126,86 +94,14 @@ const useStyle = makeStyles(theme => ({
 
 export default function Conduct() {
     const classes = useStyle();
-    const [open, setOpen] = React.useState(true);
-    function handleDrawerOpen() {
-        setOpen(true);
-    }
-
-    function handleDrawerClose() {
-        setOpen(false);
-    }
     const feedArray = [];
     lodash.forEach(contents, (value, key) => {
         feedArray.push({
             item: key,
-            len: value.length <= 3 ? 58 : value.length * 10 + 28, // 初始状态相当于留行，多余四行之后才
+            len: value.length <=0 ? 3 : value.length <= 3 ? 12 : value.length * 2 + 12, // 初始状态相当于留行，多余四行之后才
         })
     });
     const { left, right } = feedSort(feedArray);
-    function renderExp(item){
-        return (
-            <ExpansionPanel defaultExpanded {...item.extra}>
-                <ExpansionPanelSummary
-                    expandIcon={!item.extra || item.extra.expanded ? <ExpandMoreIcon /> : null}
-                    aria-controls="panel1c-content"
-                    id="panel1c-header"
-                >
-                    <div className={classes.column}>
-                        <Typography className={classes.heading}>{item.title}</Typography>
-                    </div>
-                    <div className={classes.column}>
-                        <img className={classes.logo} alt="" src={item.img} />&nbsp;
-                        <Link className={classes.secondaryHeading} href={item.link} target="_blank">{item.detail}</Link>
-                    </div>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.details}>
-                    <div className={open ? classes.column : classes.full}>
-                        <List component="nav" className={classes.list} aria-label="Contacts">
-                            {contents[item.title].map(content => (
-                                <div>
-                                    <ListItem className={classes.item} component='a' target="_blank" button href={content.link}>
-                                        <ListItemIcon className={classes.icon}>
-                                        <StarIcon color = {content.star ? "secondary" : "inherit"} />
-                                        </ListItemIcon>
-                                        <ListItemText primary={content.title} />
-                                    </ListItem>
-                                    <Divider />
-                                </div>
-                            ))}
-                        </List>
-                    </div>
-                    {!item.extra || !item.extra.expanded ? <Drawer
-                        variant="persistent"
-                        className={clsx(open ? classes.column : classes.zero, classes.drawer)}
-                        anchor="right"
-                        open={open}
-                        classes={{
-                            paper: classes.drawer,
-                        }}
-                    >
-                        <FormControl fullWidth className={classes.margin}>
-                            <Typography variant="caption">
-                                添加一个快捷访问
-                            </Typography>
-                            <TextField
-                                label={item.link.length > 30 ? item.link.slice(0, 30) + '...' : item.link}
-                                defaultValue="/"
-                                className={classes.textField}
-                            />
-                            <TextField
-                                label="名称"
-                                defaultValue=""
-                                className={classes.textField}
-                            />
-                            <BaseButton variant="outlined">
-                                提交审核
-                            </BaseButton>
-                        </FormControl>
-                    </Drawer>: null}
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
-        )
-    }
     return(
         <Container id="conduct" data-navname="导航">
             <Box textAlign="left" marginTop="2.25rem">
@@ -217,30 +113,26 @@ export default function Conduct() {
             </Box>
             <Grid container spacing={3} className={classes['conduct-container']}>
                 {left.map((_, index) => (
-                    <React.Fragment>
-                        <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                            {left[index] ? <CardDrawer contents={contents} item = {links[left[index].item]} /> : <Card
-                                image="/images/logo.png"
-                                detail={
-                                    <BaseButton>添加访问卡片</BaseButton>
-                                }
-                                type="row"
-                            />}
-                        </Grid>
-                    </React.Fragment>
+                    <Grid item sm={6} xs={12} className={classes['conduct-item']}>
+                        {left[index] ? <CardDrawer contents={contents} item = {links[left[index].item]} /> : <Card
+                            image="/images/logo.png"
+                            detail={
+                                <BaseButton>添加访问卡片</BaseButton>
+                            }
+                            type="row"
+                        />}
+                    </Grid>
                 ))}
                 {right.map((_, index) => (
-                    <React.Fragment>
-                        <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                            {right[index] ? <CardDrawer contents={contents} item = {links[right[index].item]} /> : <Card
-                                image="/images/logo.png"
-                                detail={
-                                    <BaseButton>添加访问卡片</BaseButton>
-                                }
-                                type="row"
-                            />}
-                        </Grid>
-                    </React.Fragment>
+                    <Grid item sm={6} xs={12} className={classes['conduct-item']}>
+                        {right[index] ? <CardDrawer contents={contents} item = {links[right[index].item]} /> : <Card
+                            image="/images/logo.png"
+                            detail={
+                                <BaseButton>添加访问卡片</BaseButton>
+                            }
+                            type="row"
+                        />}
+                    </Grid>
                 ))}
             </Grid>
         </Container>

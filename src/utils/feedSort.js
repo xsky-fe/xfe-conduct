@@ -51,8 +51,13 @@ export default function feedSort(arr){
     const right = [];
     findPath(len, tar, dp, arr, left, right);
     arr.shift()
-    for(let i = left.length; i < Math.max(left.length, right.length); i++){
+    const leftLen = left.map( el => el.len ).reduce((prev, curr) => {
+        return prev + curr
+    })
+    if(leftLen < tar){
         left.push(null)
+    } else {
+        right.push(null)
     }
     return {left, right};
 }
