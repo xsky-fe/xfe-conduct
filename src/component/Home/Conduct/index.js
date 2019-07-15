@@ -1,10 +1,19 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import lodash from 'lodash';
 import { BaseButton, smothScroll, Container, feedSort, Card, CardDrawer } from '../../../utils';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormControl from '@material-ui/core/FormControl';
+
 
 const links = {
     Hooters: {title: 'Hooters', img: '/images/hooters.png', color: 'WarmFlame', detail: '监控集群的健康状态', link: 'http://hooters.xsky.com', extra: {expanded: false}},
@@ -95,6 +104,7 @@ const useStyle = makeStyles(theme => ({
 export default function Conduct() {
     const classes = useStyle();
     const feedArray = [];
+    const [open, setOpen] = React.useState(false);
     lodash.forEach(contents, (value, key) => {
         feedArray.push({
             item: key,
@@ -102,6 +112,67 @@ export default function Conduct() {
         })
     });
     const { left, right } = feedSort(feedArray);
+
+    function handleClickOpen() {
+        setOpen(true);
+    }
+
+    function handleClose() {
+        setOpen(false);
+    }    
+    function renderDialog(){
+        return(
+            <React.Fragment>
+                <Card
+                    image="/images/logo.png"
+                    detail={
+                        <Button>添加访问卡片</Button>
+                    }
+                    type="row"
+                    onClick={handleClickOpen}
+                />
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">添加访问卡片</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText>
+                        需要选择上传卡片的名称、介绍以及网址
+                    </DialogContentText>
+                    <FormControl fullWidth className={classes.form}>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="名称"
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="介绍"
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="网址"
+                            fullWidth
+                        />
+                    </FormControl>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        取消
+                    </Button>
+                    <Button onClick={handleClose} color="primary">
+                        提交审核
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+            </React.Fragment>
+        )
+    }
     return(
         <Container id="conduct" data-navname="导航">
             <Box textAlign="left" marginTop="2.25rem">
@@ -114,24 +185,12 @@ export default function Conduct() {
             <Grid container spacing={3} className={classes['conduct-container']}>
                 {left.map((_, index) => (
                     <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                        {left[index] ? <CardDrawer contents={contents} item = {links[left[index].item]} /> : <Card
-                            image="/images/logo.png"
-                            detail={
-                                <BaseButton>添加访问卡片</BaseButton>
-                            }
-                            type="row"
-                        />}
+                        {left[index] ? <CardDrawer contents={contents} item = {links[left[index].item]} /> : renderDialog()}
                     </Grid>
                 ))}
                 {right.map((_, index) => (
                     <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                        {right[index] ? <CardDrawer contents={contents} item = {links[right[index].item]} /> : <Card
-                            image="/images/logo.png"
-                            detail={
-                                <BaseButton>添加访问卡片</BaseButton>
-                            }
-                            type="row"
-                        />}
+                        {right[index] ? <CardDrawer contents={contents} item = {links[right[index].item]} /> : renderDialog()}
                     </Grid>
                 ))}
             </Grid>

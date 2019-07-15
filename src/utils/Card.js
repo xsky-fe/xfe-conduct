@@ -54,11 +54,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MediaControlCard(props) {
-  const { image, title, detail, link } = props;
+  const { image, title, detail, link, onClick } = props;
   const classes = useStyles(props);
   return (
     <Card className={classes.card}>
-      <CardActionArea href={link} target="_blank" className={classes.area}>
+      <CardActionArea onClick={onClick} href={link} target="_blank" className={classes.area}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">
