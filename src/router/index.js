@@ -5,11 +5,11 @@ import { withRouter } from 'react-router';
 
 function App(props){
     return(
-        <div>
+        <React.Fragment>
             <Header params={props} />
             {props.children}
             <Footer />
-        </div>
+        </React.Fragment>
     )
 }
 

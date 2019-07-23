@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import lodash from 'lodash';
-import { BaseButton, smothScroll, Container, feedSort, Card, CardDrawer } from '../../../utils';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
+import { BaseButton, smothScroll, Container, feedSort, Card, CardDrawer, validation, fetchApi } from '../../../utils';
 
 
 const links = {
@@ -105,6 +105,11 @@ export default function Conduct() {
     const classes = useStyle();
     const feedArray = [];
     const [open, setOpen] = React.useState(false);
+    const [formData, setFormData] = React.useState({
+        name: '',
+        intro: '',
+        link: '',
+    });
     lodash.forEach(contents, (value, key) => {
         feedArray.push({
             item: key,
@@ -113,12 +118,16 @@ export default function Conduct() {
     });
     const { left, right } = feedSort(feedArray);
 
-    function handleClickOpen() {
-        setOpen(true);
+    function handleChange(label, e) {
+        setFormData(Object.assign(formData, {[label]: e.target.value}))
     }
-
-    function handleClose() {
-        setOpen(false);
+    function handleSubmit() {
+        if(validation('CardForm', formData)[0]){
+            fetchApi('localhost:3001', {}, {})
+            setOpen(false);
+        } else {
+            fetchApi('localhost:3001', {}, {})
+        }
     }    
     function renderDialog(){
         return(
@@ -129,9 +138,9 @@ export default function Conduct() {
                         <Button>添加访问卡片</Button>
                     }
                     type="row"
-                    onClick={handleClickOpen}
+                    onClick={() => setOpen(true)}
                 />
-                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <Dialog open={open} onClose={() => setOpen(true)} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">添加访问卡片</DialogTitle>
                     <DialogContent>
                     <DialogContentText>
@@ -143,29 +152,32 @@ export default function Conduct() {
                             margin="dense"
                             id="name"
                             label="名称"
+                            onChange={handleChange.bind(null, 'name')}
                             fullWidth
                         />
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="name"
+                            id="intro"
                             label="介绍"
+                            onChange={handleChange.bind(null, 'intro')}
                             fullWidth
                         />
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="name"
+                            id="link"
                             label="网址"
+                            onChange={handleChange.bind(null, 'link')}                    
                             fullWidth
                         />
                     </FormControl>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={() => setOpen(false)} color="primary">
                         取消
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleSubmit} color="primary">
                         提交审核
                     </Button>
                     </DialogActions>

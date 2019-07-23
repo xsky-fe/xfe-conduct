@@ -3,6 +3,8 @@ import Card from "./Card";
 import CardDrawer from "./CardDrawer";
 import smothScroll from "./smothScroll";
 import feedSort from './feedSort';
+import validation from './validation';
+import fetchApi from './fetch';
 import { CusContainer as Container, Banner, Content, Detail } from './Layout';
 
 export {
@@ -16,4 +18,6 @@ export {
     Detail,
     feedSort,
     CardDrawer,
+    validation,
+    fetchApi,
 }

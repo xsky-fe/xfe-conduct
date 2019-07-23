@@ -49,7 +49,10 @@ const StyledTab = withStyles(theme => ({
 const useStyle = makeStyles(() => ({
   logo: {
     height: '1.25rem'
-  }
+  },
+  outer: {
+    boxShadow: '0 0.1875rem 0.125rem #efefef'
+  },
 }))
 const AdoperLink = React.forwardRef((props, ref) => <RouterLink to={props.to} innerRef={ref} {...props} />)
 
@@ -94,7 +97,7 @@ export default function HeaderNav(props) {
 
   const classes = useStyle()
   return (
-    <Container>
+    <Container className={classes.outer}>
       <Hidden only={['xs']}>
         <StyledTabs value={value} onChange={handleChange}>
           <StyledTab icon={

@@ -4,9 +4,9 @@ import OSLibrary from './OSLibrary';
 
 export default function Home() {
     return(
-        <div>
+        <React.Fragment>
             <Conduct />
             <OSLibrary />
-        </div>
+        </React.Fragment>
     )
 }

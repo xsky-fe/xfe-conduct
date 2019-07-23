@@ -62,7 +62,7 @@ const contactList = [
 export default function Footer() {
     const classes = useStyle();
     return (
-        <div>
+        <React.Fragment>
             <Container className={classes['container']}>
                 <div className={classes["footer--border"]}></div>
                 <Grid container spacing={3}>
@@ -115,6 +115,6 @@ export default function Footer() {
                     </Typography>
                 </Container>
             </div>
-        </div>
+        </React.Fragment>
     )
 }
