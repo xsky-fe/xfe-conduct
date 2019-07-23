@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -19,6 +19,9 @@ import { BaseButton } from './Button';
 import TextField from '@material-ui/core/TextField';
 
 const useStyle = makeStyles(theme =>({
+    card: {
+        boxShadow: 'none',
+    },
     avatar: {
         color: '#fff',
         background: 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
@@ -27,10 +30,15 @@ const useStyle = makeStyles(theme =>({
         width: '2.25rem',
         verticalAlign: 'text-bottom',
     },
+    divider: {
+        backgroundColor: '#7060c0',
+    },
     header: {
-        background: 'linear-gradient(45deg, #ffffff 95%, #6b58c4 95%)',
+        background: 'radial-gradient(circle closest-side at 98.5% 10%, #705fcc 90%,#ffffff 0%, #ffffff 150%, #eeeafe 90%)',
+        color: "#7060c0",
         '& a': {
             textDecoration: 'blink',
+            color: "#7060c0",
         },
         '& a:hover': {
             color: '#000'
@@ -50,6 +58,7 @@ const useStyle = makeStyles(theme =>({
     details: {
         alignItems: 'center',
         display: 'flex',
+        backgroundColor: '#eeeafe',
         padding: theme.spacing(1, 3, 3),
     },
     column: {
@@ -66,8 +75,8 @@ const useStyle = makeStyles(theme =>({
         },
     },
     list: {
+        color: "#7060c0",
         width: '98%',
-        backgroundColor: theme.palette.background.paper,
     },
     'conduct-container': {
         display: 'block',
@@ -93,6 +102,12 @@ const useStyle = makeStyles(theme =>({
     }
 }))
 
+const ColorfulMoreVertIcon = withStyles(theme => ({
+    root: {
+        color: '#705fcc',    
+    },
+  }))(props => <MoreVertIcon {...props} />);
+
 export default function CardDrawer(props) {
     const { item, contents } = props;
     const [open, setOpen] = React.useState(false);
@@ -116,7 +131,7 @@ export default function CardDrawer(props) {
                         aria-label="toggle drawer"
                         onClick={handleDrawerToggle}
                         >
-                        <MoreVertIcon />
+                        <ColorfulMoreVertIcon />
                     </IconButton> : null
                 }
                 title={item.title}
@@ -133,7 +148,7 @@ export default function CardDrawer(props) {
                                     </ListItemIcon>
                                     <ListItemText primary={content.title} />
                                 </ListItem>
-                                <Divider />
+                                <Divider className={classes.divider} />
                             </div>
                         ))}
                     </List>
