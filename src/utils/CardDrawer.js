@@ -18,7 +18,13 @@ import FormControl from '@material-ui/core/FormControl';
 import { BaseButton } from './Button';
 import TextField from '@material-ui/core/TextField';
 
-const useStyle = makeStyles(theme =>({
+const colors = [
+    ["#dad6f7", "#846ee0", "#6b58c4"],
+    ["#feecdf", "#8e5d2e","#ffb71c"],
+    ["#d9f9f5", "#66cdcb", "#60d1cd"],
+]
+
+const useStyle = makeStyles(theme =>  ({
     card: {
         boxShadow: 'none',
     },
@@ -31,14 +37,14 @@ const useStyle = makeStyles(theme =>({
         verticalAlign: 'text-bottom',
     },
     divider: {
-        backgroundColor: '#7060c0',
+        backgroundColor: props => colors[props.index % colors.length][1],
     },
     header: {
-        background: 'radial-gradient(circle closest-side at 98.5% 10%, #705fcc 90%,#ffffff 0%, #ffffff 150%, #eeeafe 90%)',
-        color: "#7060c0",
+        background: props => `radial-gradient(circle closest-side at 98.5% 10%, ${colors[props.index % colors.length][2]} 90%,#ffffff 0%, #ffffff 150%, ${colors[props.index % colors.length][0]} 90%)`,
+        color: props => colors[props.index % colors.length][1],
         '& a': {
             textDecoration: 'blink',
-            color: "#7060c0",
+            color: props => colors[props.index % colors.length][1],
         },
         '& a:hover': {
             color: '#000'
@@ -58,7 +64,7 @@ const useStyle = makeStyles(theme =>({
     details: {
         alignItems: 'center',
         display: 'flex',
-        backgroundColor: '#eeeafe',
+        backgroundColor: props => colors[props.index % colors.length][0],
         padding: theme.spacing(1, 3, 3),
     },
     column: {
@@ -75,7 +81,7 @@ const useStyle = makeStyles(theme =>({
         },
     },
     list: {
-        color: "#7060c0",
+        color: props => colors[props.index % colors.length][1],
         width: '98%',
     },
     'conduct-container': {
@@ -109,13 +115,13 @@ const ColorfulMoreVertIcon = withStyles(theme => ({
   }))(props => <MoreVertIcon {...props} />);
 
 export default function CardDrawer(props) {
-    const { item, contents } = props;
+    const { item, contents, index } = props;
     const [open, setOpen] = React.useState(false);
     function handleDrawerToggle() {
         setOpen(!open);
     }
     const classes = useStyle(
-        {open}
+        {open, index}
     );
     return(
         <Card className={classes.card}>

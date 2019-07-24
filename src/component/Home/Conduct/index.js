@@ -197,12 +197,12 @@ export default function Conduct() {
             <Grid container spacing={3} className={classes['conduct-container']}>
                 {left.map((_, index) => (
                     <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                        {left[index] ? <CardDrawer contents={contents} item = {links[left[index].item]} /> : renderDialog()}
+                        {left[index] ? <CardDrawer index={index} contents={contents} item = {links[left[index].item]} /> : renderDialog()}
                     </Grid>
                 ))}
                 {right.map((_, index) => (
                     <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                        {right[index] ? <CardDrawer contents={contents} item = {links[right[index].item]} /> : renderDialog()}
+                        {right[index] ? <CardDrawer index={index} contents={contents} item = {links[right[index].item]} /> : renderDialog()}
                     </Grid>
                 ))}
             </Grid>
