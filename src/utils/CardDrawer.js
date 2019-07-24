@@ -30,7 +30,7 @@ const useStyle = makeStyles(theme =>  ({
     },
     avatar: {
         color: '#fff',
-        background: 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
+        background: '#ffffff',
     },
     logo: {
         width: '2.25rem',
