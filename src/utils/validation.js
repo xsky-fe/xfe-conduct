@@ -21,11 +21,11 @@ const schemas = {
                 "format": "url",
                 "minLength": 1,
             },
-            "name": {
+            "title": {
                 "type": "string",
                 "minLength": 1,
             },
-            "intro": {
+            "detail": {
                 "type": "string",
                 "minLength": 10,
             },

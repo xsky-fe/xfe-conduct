@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -13,41 +13,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import { BaseButton, smothScroll, Container, feedSort, Card, CardDrawer, validation, fetchApi } from '../../../utils';
-
-
-const links = {
-    Hooters: {title: 'Hooters', img: '/images/hooters.png', color: 'WarmFlame', detail: '监控集群的健康状态', link: 'http://hooters.xsky.com', extra: {expanded: false}},
-    License: {title: 'License',img: '/images/license-logo.png', color: 'NightFade', detail: '获得产品的认证', link: 'http://license.xsky.com/4.0', extra: {expanded: true}},
-    OEM: {title: 'OEM', img: '/images/oem-logo.png', color: 'DeepBlue', detail: 'ome包含你需要的xx', link: 'http://oem.xsky.com', extra: {expanded: false}},
-    Wiki: {title: 'Wiki', img: '/images/Wiki-logo.png', color: 'PlumPlate', detail: '记录和工作笔记', link: 'http://wiki.xsky.com'},
-    Issue: {title: 'Issue', img: '/images/Issue-logo.png', color: 'RainyAshville', detail: '欢迎提交优秀的issue', link: 'http://issue.xsky.com'},
-    Italent: {title: 'Italent', img: '/images/italent-logo.png', color: 'WinterNeva', detail: '人事管理', link: 'http://italent.cn', extra: {expanded: false}},
-    Maycur: {title: 'Maycur', img: '/images/maycur-logo.png', color: 'ItmeoBranding', detail: '报销平台', link: 'https://www.maycur.com/', extra: {expanded: false}},
-}
-
-const contents = {
-    Hooters: [],
-    License: [
-        {title: 'License 4.0', link: 'http://license.xsky.com/4.0'},
-        {title: 'License 3.0', link: 'http://license.xsky.com/'},
-    ],
-    OEM: [],
-    Wiki: [
-        {title: 'ISSUE Tode', link: 'http://wiki.xsky.com/display/RDWIZ/ISSUE+Todo', star: true},
-        {title: '2019 Q2', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q2', star: true},
-        {title: '2019 Q3', link: 'http://wiki.xsky.com/display/RDWIZ/2019+Q3', star: true},
-        {title: '开发环境', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=24647829'},
-        {title: '开发环境', link: 'http://wiki.xsky.com/pages/viewpage.action?pageId=24647829'},
-    ],
-    Issue: [
-        {title: '当前搜索', link: 'http://issue.xsky.com/issues', star: true},
-        {title: '分配给我未解决的问题', link: 'http://issue.xsky.com/issues/?filter=-1', star: true},
-        {title: 'XSCALER项目', link: 'http://issue.xsky.com/projects/XSCALER', star: true},
-        {title: 'Wizard项目', link: 'http://issue.xsky.com/browse/WIZARD', star: true},  
-    ],
-    Italent: [],
-    Maycur: []
-}
 
 const useStyle = makeStyles(theme => ({
     title: {
@@ -105,31 +70,60 @@ export default function Conduct() {
     const classes = useStyle();
     const feedArray = [];
     const [open, setOpen] = React.useState(false);
+    const [conducts, setConducts] = React.useState({})
+    const [links, setLinks] = React.useState({})
     const [formData, setFormData] = React.useState({
         name: '',
         intro: '',
         link: '',
     });
-    lodash.forEach(contents, (value, key) => {
+    lodash.forEach(conducts, (value, key) => {
+        console.log(links[key].extra)
         feedArray.push({
             item: key,
-            len: value.length <=0 ? 3 : value.length <= 3 ? 12 : value.length * 2 + 12, // 初始状态相当于留行，多余四行之后才
+            len: links[key].expanded !== false ? value.length <=0 ? 3 : value.length <= 3 ? 12 : value.length * 2 + 12 : 1, // 初始状态相当于留行，多余四行之后才
         })
     });
+    console.log(feedArray)
     const { left, right } = feedSort(feedArray);
 
     function handleChange(label, e) {
         setFormData(Object.assign(formData, {[label]: e.target.value}))
     }
+
+    useEffect(() => {
+        fetchInitData()
+    },[])
+
+    function fetchInitData() {
+        fetchApi('/links', {}, {}).then(res=>{
+            setLinks(JSON.parse(res.content));
+        }).then(()=>{
+            fetchApi('/conducts', {}, {}).then(res=>{
+                setConducts(JSON.parse(res.content));
+            })
+        })
+    }
+
     function handleSubmit() {
         if(validation('CardForm', formData)[0]){
-            fetchApi('localhost:3001', {}, {})
-            setOpen(false);
+            fetchApi('/add_links', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                cache: 'no-cache',
+            }, {formData}).then(()=>{
+                fetchInitData()
+                setOpen(false);
+            })
         } else {
-            fetchApi('localhost:3001', {}, {})
+            console.log(formData)
         }
     }    
     function renderDialog(){
+        console.log(conducts)
         return(
             <React.Fragment>
                 <Card
@@ -150,17 +144,17 @@ export default function Conduct() {
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="name"
+                            id="title"
                             label="名称"
-                            onChange={handleChange.bind(null, 'name')}
+                            onChange={handleChange.bind(null, 'title')}
                             fullWidth
                         />
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="intro"
+                            id="detail"
                             label="介绍"
-                            onChange={handleChange.bind(null, 'intro')}
+                            onChange={handleChange.bind(null, 'detail')}
                             fullWidth
                         />
                         <TextField
@@ -196,13 +190,13 @@ export default function Conduct() {
             </Box>
             <Grid container spacing={3} className={classes['conduct-container']}>
                 {left.map((_, index) => (
-                    <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                        {left[index] ? <CardDrawer index={index} contents={contents} item = {links[left[index].item]} /> : renderDialog()}
+                    <Grid item sm={6} xs={12} className={classes['conduct-item']} key={'left'+index}>
+                        {left[index] ? <CardDrawer index={index} contents={conducts} item = {links[left[index].item]} /> : renderDialog()}
                     </Grid>
                 ))}
                 {right.map((_, index) => (
-                    <Grid item sm={6} xs={12} className={classes['conduct-item']}>
-                        {right[index] ? <CardDrawer index={index} contents={contents} item = {links[right[index].item]} /> : renderDialog()}
+                    <Grid item sm={6} xs={12} className={classes['conduct-item']} key={'right'+index} >
+                        {right[index] ? <CardDrawer index={index} contents={conducts} item = {links[right[index].item]} /> : renderDialog()}
                     </Grid>
                 ))}
             </Grid>

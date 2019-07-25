@@ -48,6 +48,9 @@ const useStyle = makeStyles(theme =>  ({
         },
         '& a:hover': {
             color: '#000'
+        },
+        '& .MuiAvatar-root': {
+            borderRadius: '35%',
         }
     },
     secondaryHeading: {
@@ -110,7 +113,7 @@ const useStyle = makeStyles(theme =>  ({
 
 const ColorfulMoreVertIcon = withStyles(theme => ({
     root: {
-        color: '#705fcc',    
+        color: props => colors[props.index % colors.length][1],    
     },
   }))(props => <MoreVertIcon {...props} />);
 
@@ -133,28 +136,28 @@ export default function CardDrawer(props) {
                     </Avatar>
                 }
                 action={
-                    !item.extra || item.extra.expanded ? <IconButton
+                    item.expanded !== false ? <IconButton
                         aria-label="toggle drawer"
                         onClick={handleDrawerToggle}
                         >
-                        <ColorfulMoreVertIcon />
+                        <ColorfulMoreVertIcon index={index} />
                     </IconButton> : null
                 }
                 title={item.title}
                 subheader={<Link className={classes.secondaryHeading} href={item.link} target="_blank">{item.detail}</Link>}
             />
-            {!item.extra || item.extra.expanded ? <CardContent className={classes.details}>
+            {item.expanded !== false ? <CardContent className={classes.details}>
                 <div className={open ? classes.column : classes.full}>
                     <List component="nav" className={classes.list} aria-label="Contacts">
                         {contents[item.title].map(content => (
                             <div>
-                                <ListItem className={classes.item} component='a' target="_blank" button href={content.link}>
+                                <ListItem key={"ListItem" + item.title} className={classes.item} component='a' target="_blank" button href={content.link}>
                                     <ListItemIcon className={classes.icon}>
                                     <StarIcon color = {content.star ? "secondary" : "inherit"} />
                                     </ListItemIcon>
                                     <ListItemText primary={content.title} />
                                 </ListItem>
-                                <Divider className={classes.divider} />
+                                <Divider key={"Divider" + item.title} className={classes.divider} />
                             </div>
                         ))}
                     </List>
