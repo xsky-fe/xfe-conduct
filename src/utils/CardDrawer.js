@@ -118,11 +118,15 @@ const ColorfulMoreVertIcon = withStyles(theme => ({
   }))(props => <MoreVertIcon {...props} />);
 
 export default function CardDrawer(props) {
-    const { item, contents, index } = props;
+    const { item, contents, index, handleSubmit, handleChange } = props;
     const [open, setOpen] = React.useState(false);
     function handleDrawerToggle() {
         setOpen(!open);
+        console.log(open)
+        !open ? handleChange('name', item.title) : handleChange('name', '')
     }
+// 重复提交
+
     const classes = useStyle(
         {open, index}
     );
@@ -170,13 +174,15 @@ export default function CardDrawer(props) {
                         label={item.link.length > 30 ? item.link.slice(0, 30) + '...' : item.link}
                         defaultValue="/"
                         className={classes.textField}
+                        onChange={e => handleChange('link', item.link + e.target.value.replace(item.link, ''))}
                     />
                     <TextField
                         label="名称"
                         defaultValue=""
                         className={classes.textField}
+                        onChange={handleChange.bind(null, 'title')}
                     />
-                    <BaseButton variant="outlined">
+                    <BaseButton variant="outlined" onClick={handleSubmit.bind(null, 'add_items', 'QAForm')}>
                         提交审核
                     </BaseButton>
                 </FormControl>

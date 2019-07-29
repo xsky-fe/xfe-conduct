@@ -74,21 +74,20 @@ export default function Conduct() {
     const [links, setLinks] = React.useState({})
     const [formData, setFormData] = React.useState({
         name: '',
+        title: '',
         intro: '',
         link: '',
     });
     lodash.forEach(conducts, (value, key) => {
-        console.log(links[key].extra)
         feedArray.push({
             item: key,
             len: links[key].expanded !== false ? value.length <=0 ? 3 : value.length <= 3 ? 12 : value.length * 2 + 12 : 1, // 初始状态相当于留行，多余四行之后才
         })
     });
-    console.log(feedArray)
     const { left, right } = feedSort(feedArray);
 
     function handleChange(label, e) {
-        setFormData(Object.assign(formData, {[label]: e.target.value}))
+        setFormData(Object.assign(formData, {[label]: e.target ? e.target.value : e}))
     }
 
     useEffect(() => {
@@ -105,9 +104,10 @@ export default function Conduct() {
         })
     }
 
-    function handleSubmit() {
-        if(validation('CardForm', formData)[0]){
-            fetchApi('/add_links', {
+    function handleSubmit(type, validationType) {
+        console.log(type, validationType, formData)
+        if(validation(validationType, formData)[0]){
+            fetchApi(`/${type}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -119,11 +119,10 @@ export default function Conduct() {
                 setOpen(false);
             })
         } else {
-            console.log(formData)
+            console.log(validation(validationType, formData))
         }
     }    
     function renderDialog(){
-        console.log(conducts)
         return(
             <React.Fragment>
                 <Card
@@ -171,7 +170,7 @@ export default function Conduct() {
                     <Button onClick={() => setOpen(false)} color="primary">
                         取消
                     </Button>
-                    <Button onClick={handleSubmit} color="primary">
+                    <Button onClick={handleSubmit.bind(null, 'add_links','CardForm')} color="primary">
                         提交审核
                     </Button>
                     </DialogActions>
@@ -191,12 +190,24 @@ export default function Conduct() {
             <Grid container spacing={3} className={classes['conduct-container']}>
                 {left.map((_, index) => (
                     <Grid item sm={6} xs={12} className={classes['conduct-item']} key={'left'+index}>
-                        {left[index] ? <CardDrawer index={index} contents={conducts} item = {links[left[index].item]} /> : renderDialog()}
+                        {left[index] ? <CardDrawer 
+                            index={index} 
+                            contents={conducts} 
+                            item = {links[left[index].item]}
+                            handleSubmit={handleSubmit}
+                            handleChange={handleChange}
+                            /> : renderDialog()}
                     </Grid>
                 ))}
                 {right.map((_, index) => (
                     <Grid item sm={6} xs={12} className={classes['conduct-item']} key={'right'+index} >
-                        {right[index] ? <CardDrawer index={index} contents={conducts} item = {links[right[index].item]} /> : renderDialog()}
+                        {right[index] ? <CardDrawer 
+                            index={index} 
+                            contents={conducts} 
+                            item = {links[right[index].item]} 
+                            handleSubmit={handleSubmit}
+                            handleChange={handleChange}
+                            /> : renderDialog()}
                     </Grid>
                 ))}
             </Grid>

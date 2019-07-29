@@ -3,12 +3,16 @@ import Ajv from 'ajv';
 const schemas = {
     QAForm: {
         "properties": {
-            "link": {
+            "name": {
                 "type": "string",
-                "format": "path",
                 "minLength": 1,
             },
-            "name": {
+            "link": {
+                "type": "string",
+                "format": "url",
+                "minLength": 1,
+            },
+            "title": {
                 "type": "string",
                 "minLength": 1,
             },
