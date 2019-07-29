@@ -5,7 +5,7 @@ export default function fetchApi(url, params, data = {}){
     } : {
         ...params,
     }
-    return fetch(`${url}`, fetchParams)
+    return fetch(`/server${url}`, fetchParams)
     .then(res => {
         return res.text().then(function(text) {
             return text ? JSON.parse(text) : {}

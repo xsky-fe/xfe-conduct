@@ -31,7 +31,7 @@ const schemas = {
             },
             "detail": {
                 "type": "string",
-                "minLength": 10,
+                "minLength": 5,
             },
         }
     }
